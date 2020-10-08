@@ -144,6 +144,7 @@
     <ClCompile Include="ppm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ColorDefinition.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="ppm.h" />
   </ItemGroup>

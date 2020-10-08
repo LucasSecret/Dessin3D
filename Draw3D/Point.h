@@ -9,7 +9,8 @@ class Point
 protected:
 	float xAxis;
 	float yAxis;
-	static int numberOfpoint;
+	float zAxis;
+
 
 public:
 	Point();
