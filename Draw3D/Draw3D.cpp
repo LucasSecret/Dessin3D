@@ -1,10 +1,16 @@
 #include "ppm.h"
-
-
-
+#include "Point.h"
 
 
 #define T 80
+
+
+void displayPoint(Point point, Ppm& image)
+{
+	char fileName[] = "res.ppm";
+	image.setpixel(point.getXaxis(), point.getYaxis(), point.getColor());
+	image.write(fileName);
+}
 
 int main()
 {
@@ -35,8 +41,7 @@ int main()
 	cer.afficher(im);
 */
 
-	char* fileName = "res.ppm";
-	im.write("res.ppm");
+	
 
 	return 0;
 }
