@@ -43,7 +43,7 @@ Point::Point(float x, float y)
 	this->color = BLUE;
 }
 
-Point::Point(Point& copy)
+Point::Point(const Point& copy)
 {
 	xAxis = copy.xAxis;
 	yAxis = copy.yAxis;
@@ -80,6 +80,8 @@ double** Point::getXRotationMatrix(double angle)
 	matrix[0][0] = 1; matrix[0][1] = 0;          matrix[0][2] = 0;
 	matrix[1][0] = 0; matrix[1][1] = cos(angle); matrix[1][2] = -sin(angle);
 	matrix[2][0] = 0; matrix[2][1] = sin(angle); matrix[2][2] = cos(angle);
+
+	return matrix;
 	
 }
 
@@ -93,6 +95,7 @@ double** Point::getYRotationMatrix(double angle)
 	matrix[1][0] = 0;           matrix[1][1] = 1;          matrix[1][2] = 0;
 	matrix[2][0] = -sin(angle); matrix[2][1] = 0;          matrix[2][2] = cos(angle);
 
+	return matrix;
 }
 
 double** Point::getZRotationMatrix(double angle)
@@ -105,6 +108,7 @@ double** Point::getZRotationMatrix(double angle)
 	matrix[1][0] = sin(angle); matrix[1][1] = cos(angle);  matrix[1][2] = 0;
 	matrix[2][0] = 0;          matrix[2][1] = 0;           matrix[2][2] = 1;
 
+	return matrix;
 }
 
 void Point::rotate(double** matrix)
@@ -166,10 +170,11 @@ bool Point::operator==(Point& point)
 
 ostream& operator<<(ostream& stream, Point& point)
 {
-	cout << endl;
-	cout << "Coordonnee x : " << point.xAxis << endl;
-	cout << "Coordonnee y : " << point.yAxis << endl;
-	cout << "Coordonnee z : " << point.zAxis << endl;
-	cout << "Couleur : " << point.color << endl;
-	cout << endl << endl;
+	stream << "Coordonnee x : " << point.xAxis << endl;
+	stream << "Coordonnee y : " << point.yAxis << endl;
+	stream << "Coordonnee z : " << point.zAxis << endl;
+	stream << "Couleur : " << point.color << endl;
+	stream << endl << endl;
+
+	return stream;
 }

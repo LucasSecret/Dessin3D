@@ -27,7 +27,7 @@ public:
 	Point(float x, float y, float z, int color);
 	Point(float x, float y, int color);
 	Point(float x, float y);
-	Point(Point& copy);
+	Point(const Point& copy);
 
 
 	float getXaxis();

@@ -1,6 +1,6 @@
 #include "ppm.h"
 #include "Point.h"
-
+#include "Circle.h"
 
 #define T 80
 
@@ -12,9 +12,20 @@ void displayPoint(Point point, Ppm& image)
 	image.write(fileName);
 }
 
+void displayShape(vector<Point> pointList, Ppm& image)
+{
+	for (int i = 0; i < pointList.size(); i++)
+		image.setpixel(pointList[i].getXaxis(), pointList[i].getYaxis(), pointList[i].getColor());
+	
+	char fileName[] = "res.ppm";
+	image.write(fileName);
+
+	cout << "Computed.";
+}
+
 int main()
 {
-	Ppm im(256, 256);
+	Ppm image(256, 256);
 
 
 	Point pt1(0, 0, 0, ROUGE), pt2(T, 0, 0, ROUGE), pt3(T, 0, T, ROUGE), pt4(0, 0, T, ROUGE);
@@ -41,6 +52,8 @@ int main()
 	cer.afficher(im);
 */
 
+	Circle circle(128, 128, 0, 50, GREEN);
+	displayShape(circle.getPoints(), image);
 	
 
 	return 0;

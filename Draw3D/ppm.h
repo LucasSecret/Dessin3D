@@ -55,7 +55,7 @@ public:
 	void write(CHAR*);
 
 	//affecte la couleur 'color' au pixel de coordonnees (I,J)
-	void setpixel(SHORT I, SHORT J, ULONG color)
+	void setpixel(SHORT J, SHORT I, ULONG color)
 	{
 		assert((I >= 0) && (I < height) && (J >= 0) && (J < width));
 
