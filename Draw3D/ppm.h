@@ -2,7 +2,7 @@
 //   header inclus dans tous les fichiers sources//
 ///////////////////////////////////////////////////////////
 
-
+#pragma once
 #include <fstream>
 #include <iostream>
 #include <cassert>
@@ -21,19 +21,6 @@ typedef short SHORT;
 typedef char CHAR;
 
 
-
-
-////////////////////////////////////
-//Definition des couleurs de base
-////////////////////////////////////
-#define ROUGE 0x00FF0000
-#define BLEU 0x000000FF
-#define VERT 0x0000FF00
-#define JAUNE 0x00FFFF00
-#define ROSE 0x00FF00FF
-#define CYAN 0x0000FFFF
-#define NOIR 0x00000000
-#define BLANC 0x00FFFFFF
 
 
 

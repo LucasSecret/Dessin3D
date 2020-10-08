@@ -71,6 +71,7 @@ void Point::homotethia(double ratio)
 }
 
 
+
 double** Point::getXRotationMatrix(double angle)
 {
 	double** matrix = new double* [3];
@@ -134,7 +135,6 @@ void Point::Yrotation(double angle)
 	rotate(getYRotationMatrix(angle));
 }
 
-
 void Point::Zrotation(double angle)
 {
 	angle *= (M_PI / 180);
@@ -143,13 +143,14 @@ void Point::Zrotation(double angle)
 
 
 
-
-void Point::translate(int xOffset, int yOffset, int zOffset)
+void Point::translate(float xOffset, float yOffset, float zOffset)
 {
 	xAxis += xOffset;
 	yAxis += yOffset;
 	zAxis += zOffset;
 }
+
+
 
 Point& Point::operator+(Point& point)
 {

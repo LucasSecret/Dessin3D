@@ -44,7 +44,7 @@ public:
 	void Xrotation(double angle);
 	void Yrotation(double angle);
 	void Zrotation(double angle);
-	void translate(int xOffset, int yOffset, int zOffset);
+	void translate(float xOffset, float yOffset, float zOffset);
 
 	Point& operator+(Point& point);
 	bool operator==(Point& point);

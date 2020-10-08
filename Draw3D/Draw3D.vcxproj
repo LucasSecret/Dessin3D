@@ -143,12 +143,14 @@
     <ClCompile Include="Draw3D.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="ppm.cpp" />
+    <ClCompile Include="Segment.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Circle.h" />
     <ClInclude Include="ColorDefinition.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="ppm.h" />
+    <ClInclude Include="Segment.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,22 +1,24 @@
 #include "ppm.h"
 #include "Point.h"
 #include "Circle.h"
+#include "Segment.h"
 
 #define T 80
 
 
-void displayPoint(Point point, Ppm& image)
+void addPointToImage(Point point, Ppm& image)
 {
-	char fileName[] = "res.ppm";
 	image.setpixel(point.getXaxis(), point.getYaxis(), point.getColor());
-	image.write(fileName);
 }
 
-void displayShape(vector<Point> pointList, Ppm& image)
+void addShapeOnImage(vector<Point> pointList, Ppm& image)
 {
 	for (int i = 0; i < pointList.size(); i++)
-		image.setpixel(pointList[i].getXaxis(), pointList[i].getYaxis(), pointList[i].getColor());
-	
+		addPointToImage(pointList[i], image);
+}
+
+void createImage(Ppm& image)
+{
 	char fileName[] = "res.ppm";
 	image.write(fileName);
 
@@ -28,9 +30,10 @@ int main()
 	Ppm image(256, 256);
 
 
+	/*
 	Point pt1(0, 0, 0, ROUGE), pt2(T, 0, 0, ROUGE), pt3(T, 0, T, ROUGE), pt4(0, 0, T, ROUGE);
 	Point pt5(0, T, T, ROUGE), pt6(0, T, 0, ROUGE), pt7(T, T, 0, ROUGE), pt8(T, T, T, ROUGE);
-/*
+
 	Facette fdessous(pt1, pt2, pt3, pt4, BLEU);
 	Facette fface(pt8, pt5, pt4, pt3, ROUGE);
 	Facette fgauche(pt5, pt6, pt1, pt4, VERT);
@@ -51,10 +54,22 @@ int main()
 	cer.translation(50, 50, 0);
 	cer.afficher(im);
 */
+	Segment segment(Point(128, 78), Point(128, 178), YELLOW);
+	Segment segment2(Point(78, 128), Point(178, 128), YELLOW);
+
+	float startX = segment.getStartPoint().getXaxis();
+	float startY = segment.getStartPoint().getYaxis();
+
+	/*segment.translate(10, 10, 0);
+	segment2.translate(10, 10, 0);*/
 
 	Circle circle(128, 128, 0, 50, GREEN);
-	displayShape(circle.getPoints(), image);
+	addShapeOnImage(circle.getPoints(), image);
+
+	segment.displayOn(image);
+	segment2.displayOn(image);
 	
+	createImage(image);
 
 	return 0;
 }
