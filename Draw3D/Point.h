@@ -41,9 +41,12 @@ public:
 
 
 	void homotethia(double ratio);
+
+	void rotation(double alpha, double beta, double gamma);
 	void Xrotation(double angle);
 	void Yrotation(double angle);
 	void Zrotation(double angle);
+
 	void translate(float xOffset, float yOffset, float zOffset);
 
 	Point& operator+(Point& point);

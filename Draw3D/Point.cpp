@@ -123,6 +123,13 @@ void Point::rotate(double** matrix)
 	zAxis = z;	
 }
 
+void Point::rotation(double alpha, double beta, double gamma)
+{
+	Xrotation(alpha);
+	Yrotation(beta);
+	Zrotation(gamma);
+}
+
 void Point::Xrotation(double angle)
 {
 	angle *= (M_PI / 180);

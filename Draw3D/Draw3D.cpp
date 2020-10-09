@@ -29,7 +29,6 @@ int main()
 {
 	Ppm image(256, 256);
 
-
 	/*
 	Point pt1(0, 0, 0, ROUGE), pt2(T, 0, 0, ROUGE), pt3(T, 0, T, ROUGE), pt4(0, 0, T, ROUGE);
 	Point pt5(0, T, T, ROUGE), pt6(0, T, 0, ROUGE), pt7(T, T, 0, ROUGE), pt8(T, T, T, ROUGE);
@@ -54,14 +53,15 @@ int main()
 	cer.translation(50, 50, 0);
 	cer.afficher(im);
 */
+
 	Segment segment(Point(128, 78), Point(128, 178), YELLOW);
 	Segment segment2(Point(78, 128), Point(178, 128), YELLOW);
 
 	float startX = segment.getStartPoint().getXaxis();
 	float startY = segment.getStartPoint().getYaxis();
 
-	/*segment.translate(10, 10, 0);
-	segment2.translate(10, 10, 0);*/
+	segment.translate(10, 10, 0);
+	segment2.translate(10, 10, 0);
 
 	Circle circle(128, 128, 0, 50, GREEN);
 	addShapeOnImage(circle.getPoints(), image);
