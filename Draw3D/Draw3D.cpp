@@ -2,6 +2,7 @@
 #include "Point.h"
 #include "Circle.h"
 #include "Segment.h"
+#include "Face.h"
 
 #define T 80
 
@@ -49,22 +50,28 @@ int main()
 
 	C.remplissage(im);
 
-	Cercle cer(10);
-	cer.translation(50, 50, 0);
 	cer.afficher(im);
 */
 
-	Segment segment(Point(128, 78), Point(128, 178), YELLOW);
-	Segment segment2(Point(78, 128), Point(178, 128), YELLOW);
-
-	float startX = segment.getStartPoint().getXaxis();
-	float startY = segment.getStartPoint().getYaxis();
-
-	Circle circle(128, 128, 0, 50, GREEN);
-	addShapeOnImage(circle.getPoints(), image);
+	Segment segment(Point(100, 50), Point(100, 150), BLUE);
+	Segment segment2(Point(50, 100), Point(150, 100), BLUE);
 
 	segment.displayOn(image);
 	segment2.displayOn(image);
+
+	vector<Segment> segments;
+	segments.push_back(Segment(Point(50, 50), Point(150, 50), YELLOW));
+	segments.push_back(Segment(Point(150, 50), Point(150, 150), YELLOW));
+	segments.push_back(Segment(Point(150, 150), Point(50, 150), YELLOW));
+	segments.push_back(Segment(Point(50, 150), Point(50, 50), YELLOW));
+
+	SquareFace face(segments);
+	face.displayEdgesOn(image);
+
+	Circle circle(100, 100, 0, 50, GREEN);
+	addShapeOnImage(circle.getPoints(), image);
+
+
 	
 	createImage(image);
 

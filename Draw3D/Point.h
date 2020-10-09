@@ -49,6 +49,10 @@ public:
 
 	void translate(float xOffset, float yOffset, float zOffset);
 
+	Point getNorthNeighbor();
+	Point getEastNeighbor();
+	Point getSouthNeighbor();
+	Point getWestNeighbor();
 
 
 	Point& operator+(Point& point);

@@ -66,6 +66,13 @@ void Segment::translate(float xOffset, float yOffset, float zOffset)
 	end.translate(xOffset, yOffset, zOffset);
 }
 
+
+void Segment::rotate(double alpha, double beta, double gamma)
+{
+	start.translate(alpha, beta, gamma);
+	end.translate(alpha, beta, gamma);
+}
+
 void Segment::xRotation(double angle)
 {
 	start.Xrotation(angle);

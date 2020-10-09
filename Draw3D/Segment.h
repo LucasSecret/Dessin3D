@@ -25,6 +25,7 @@ public:
 
 	void translate(float xOffset, float yOffset, float zOffset);
 
+	void rotate(double alpha, double beta, double gamma);
 	void xRotation(double angle);
 	void yRotation(double angle);
 	void zRotation(double angle);

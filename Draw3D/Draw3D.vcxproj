@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Draw3D.cpp" />
+    <ClCompile Include="Face.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="ppm.cpp" />
     <ClCompile Include="Segment.cpp" />
@@ -148,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="Circle.h" />
     <ClInclude Include="ColorDefinition.h" />
+    <ClInclude Include="Face.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="ppm.h" />
     <ClInclude Include="Segment.h" />

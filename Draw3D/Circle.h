@@ -7,6 +7,7 @@ class Circle :
 {
 private : 
     float radius;
+
 public:
     Circle();
     Circle(float x, float y, float z, float radius, int Color);
