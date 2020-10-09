@@ -49,6 +49,8 @@ public:
 
 	void translate(float xOffset, float yOffset, float zOffset);
 
+
+
 	Point& operator+(Point& point);
 	bool operator==(Point& point);
 

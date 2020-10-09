@@ -60,9 +60,6 @@ int main()
 	float startX = segment.getStartPoint().getXaxis();
 	float startY = segment.getStartPoint().getYaxis();
 
-	segment.translate(10, 10, 0);
-	segment2.translate(10, 10, 0);
-
 	Circle circle(128, 128, 0, 50, GREEN);
 	addShapeOnImage(circle.getPoints(), image);
 
@@ -70,6 +67,8 @@ int main()
 	segment2.displayOn(image);
 	
 	createImage(image);
+
+
 
 	return 0;
 }
