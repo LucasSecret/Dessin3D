@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "ppm.h"
 #include "Point.h"
 
 class Circle :
@@ -15,6 +16,8 @@ public:
     Circle(float x, float y, float radius);
     Circle(float radius);
     Circle(Circle& copy);
+
+    void displayOn(Ppm& image);
 
     vector<Point> getPoints();
 };

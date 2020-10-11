@@ -36,6 +36,15 @@ SquareFace::SquareFace(Segment* segments, int color)
 
 }
 
+SquareFace::SquareFace(vector<Segment> segments, int color)
+{
+	this->color = color;
+
+	this->segments = new Segment[numberOfSegment];
+	for (int i = 0; i < numberOfSegment; i++)
+		this->segments[i] = segments[i];
+}
+
 SquareFace::SquareFace(Segment seg1, Segment seg2, Segment seg3, Segment seg4)
 {
 	color = GREEN;
@@ -80,6 +89,44 @@ SquareFace::SquareFace(Point p1, Point p2, Point p3, Point p4, int color)
 	segments[3] = Segment(p4, p1);
 }
 
+
+int SquareFace::getWidth()
+{
+	int i = 0;
+	int maxX = 0, minX = 0;
+	
+	while (minX == maxX)
+	{
+		minX = segments[i].getStartPoint().getXaxis();
+		maxX = segments[i].getEndPoint().getXaxis();
+	}
+
+	return abs(maxX - minX);
+}
+
+
+Point SquareFace::getTopLeftCorner()
+{
+	int minX = segments[0].getStartPoint().getXaxis();
+	int minY = segments[0].getStartPoint().getYaxis();
+	int minZ = segments[0].getStartPoint().getZaxis();
+
+	for (int i = 0; i < numberOfSegment; i++)
+	{
+		if(minX > segments[0].getStartPoint().getXaxis())
+			minX = segments[0].getStartPoint().getXaxis();
+
+		if(minY < segments[0].getStartPoint().getYaxis())
+			minY = segments[0].getStartPoint().getYaxis();
+
+		if (minZ < segments[0].getStartPoint().getZaxis())
+			minZ = segments[0].getStartPoint().getZaxis();
+	}		
+
+	return Point(minX, minY, minZ);
+}
+
+
 void SquareFace::translate(float xOffset, float yOffset, float zOffset)
 {
 	for (int i = 0; i < numberOfSegment; i++)
@@ -97,12 +144,76 @@ void SquareFace::rotate(double alpha, double beta, double gamma)
 void SquareFace::displayEdgesOn(Ppm& image)
 {
 	for (int i = 0; i < numberOfSegment; i++)
-	{
 		segments[i].displayOn(image);
-		
-	}
+	
 }
 
+bool SquareFace::pointIsOnEdge(Point point)
+{
+	for (int i = 0; i < numberOfSegment; i++)
+	{
+		if (point.getXaxis() == segments[i].getStartPoint().getXaxis()
+			|| point.getYaxis() == segments[i].getStartPoint().getYaxis())
+			return true;
+	}
+
+	return false;
+}
+
+int SquareFace::displayFaceRecursively(bool** pointsDisplayed, Point topLeftCorner, Point currentPoint, Ppm& image)
+{
+	if(pointIsOnEdge(currentPoint))
+		return 0;
+	
+	int x = currentPoint.getXaxis() - topLeftCorner.getXaxis();
+	int y = currentPoint.getYaxis() - topLeftCorner.getYaxis();
+
+	if (pointsDisplayed[x][y])
+		return 0;
+
+	image.setpixel(currentPoint.getXaxis(), currentPoint.getYaxis(), color);
+	pointsDisplayed[x][y] = true;
+
+	displayFaceRecursively(pointsDisplayed, topLeftCorner, currentPoint.getNorthNeighbor(), image);
+	displayFaceRecursively(pointsDisplayed, topLeftCorner, currentPoint.getEastNeighbor(), image);
+	displayFaceRecursively(pointsDisplayed, topLeftCorner, currentPoint.getSouthNeighbor(), image);
+	displayFaceRecursively(pointsDisplayed, topLeftCorner, currentPoint.getWestNeighbor(), image);
+
+	return 0;
+}
+
+void SquareFace::displayFullFaceOn(Ppm& image)
+{
+
+
+	int width = getWidth();
+	bool** arePointDisplayed = new bool* [width];
+
+	Point centerPoint;
+	Point topLeftPoint = getTopLeftCorner();
+	centerPoint.setXaxis(topLeftPoint.getXaxis() + width/2);
+	centerPoint.setXaxis(topLeftPoint.getYaxis() + width/2);
+	centerPoint.setXaxis(topLeftPoint.getZaxis() + width/2);
+
+	Point currentPoint = topLeftPoint;
+
+
+	for(int i=0; i<width; i++)
+	{
+		arePointDisplayed[i] = new bool[width];
+		for (int j = 0; j < width; j++)
+		{
+			if(i==0 || i == width || j==0 || j== width)
+				arePointDisplayed[i][j] = true; //set the border colored
+
+			else
+				arePointDisplayed[i][j] = false;
+		}
+	}
+
+	displayFaceRecursively(arePointDisplayed, topLeftPoint, currentPoint, image);
+
+}
 
 
 

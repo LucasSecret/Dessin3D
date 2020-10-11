@@ -56,7 +56,7 @@ public:
 
 
 	Point& operator+(Point& point);
-	bool operator==(Point& point);
+	bool operator==(const Point& point) const;
 
 	friend ostream& operator<<(ostream& stream, Point& point);
 };

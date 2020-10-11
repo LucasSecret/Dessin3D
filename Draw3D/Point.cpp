@@ -191,7 +191,7 @@ Point& Point::operator+(Point& point)
 	return p;
 }
 
-bool Point::operator==(Point& point)
+bool Point::operator==(const Point& point) const
 {
 	if (xAxis == point.xAxis
 		&& yAxis == point.xAxis

@@ -72,6 +72,15 @@ int main()
 	addShapeOnImage(circle.getPoints(), image);
 
 
+	segments.clear();
+	segments.push_back(Segment(Point(10, 10), Point(50, 10), YELLOW));
+	segments.push_back(Segment(Point(50, 10), Point(50, 50), YELLOW));
+	segments.push_back(Segment(Point(50, 50), Point(10, 50), YELLOW));
+	segments.push_back(Segment(Point(10, 50), Point(10, 10), YELLOW));
+
+	SquareFace faceFull(segments, RED);
+	faceFull.displayFullFaceOn(image);
+
 	
 	createImage(image);
 
