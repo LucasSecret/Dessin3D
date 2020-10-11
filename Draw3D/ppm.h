@@ -44,6 +44,7 @@ public:
 	//affecte la couleur 'color' au pixel de coordonnees (I,J)
 	void setpixel(SHORT J, SHORT I, ULONG color)
 	{
+
 		assert((I >= 0) && (I < height) && (J >= 0) && (J < width));
 
 		LONG ind = 3 * (I * width + J);
@@ -58,7 +59,6 @@ public:
 	{
 		ULONG couleur;
 		BYTE R, G, B;
-
 		assert((I >= 0) && (I < height) && (J >= 0) && (J < width));
 
 		LONG ind = 3 * (I * width + J);
@@ -75,6 +75,8 @@ public:
 		return couleur;
 	};
 
+	SHORT getWidth();
+	SHORT getHeight();
 
 
 	//trace une ligne à partir de deux points

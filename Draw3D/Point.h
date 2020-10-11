@@ -2,6 +2,7 @@
 #include <iostream>
 #include <math.h>
 #include "ColorDefinition.h"
+#include "ppm.h"
 
 using namespace std;
 
@@ -12,7 +13,7 @@ private :
 	double** getYRotationMatrix(double angle);
 	double** getZRotationMatrix(double angle);
 
-	void rotate(double** matrix);
+	void rotateWithMatrix(double** matrix);
 
 protected:
 	float xAxis;
@@ -39,10 +40,11 @@ public:
 	void setZaxis(float z);
 	void setColor(int color);
 
+	bool isOutOfBounds(Ppm& image);
 
 	void homotethia(double ratio);
 
-	void rotation(double alpha, double beta, double gamma);
+	void rotate(double alpha, double beta, double gamma);
 	void Xrotation(double angle);
 	void Yrotation(double angle);
 	void Zrotation(double angle);

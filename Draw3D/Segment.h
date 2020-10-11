@@ -10,6 +10,7 @@ private :
 	Point start, end;
 	int color;
 
+	bool segmentIsOutOfBounds(Ppm& image);
 public:
 	Segment();
 	Segment(Point start, Point end);
@@ -18,6 +19,10 @@ public:
 	vector<Point> getPoints();
 	Point getStartPoint();
 	Point getEndPoint();
+
+	bool pointIsInSegment(Point p);
+	pair<bool, Point> isCrossing(Segment segment);
+	Point getMiddle();
 
 	void setStartPoint(Point start);
 	void setEndPoint(Point end);

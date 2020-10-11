@@ -28,7 +28,7 @@ public :
 	SquareFace(Point point, int width, int color);
 
 	int getWidth();
-	Point getTopLeftCorner();
+	Point getLeftCorner();
 
 	void translate(float xOffset, float yOffset, float zOffset);
 	void rotate(double alpha, double beta, double gamma);

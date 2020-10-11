@@ -51,6 +51,39 @@ vector<Point> Segment::getPoints()
 Point Segment::getStartPoint() { return start; }
 Point Segment::getEndPoint() { return end; }
 
+bool Segment::pointIsInSegment(Point p)
+{
+	vector<Point> segmentPoints = getPoints();
+	for (int i = 0; i < segmentPoints.size(); i++)
+	{
+		if (p == segmentPoints[i])
+			return true;
+	}
+	return false;
+}
+
+pair<bool, Point> Segment::isCrossing(Segment segment)
+{
+	vector<Point> segmentCrossedPoints = segment.getPoints();
+	vector<Point> thisPoints = getPoints();
+	for (int i = 0; i < segmentCrossedPoints.size(); i++)
+	{
+		for (int j = 0; j < thisPoints.size(); j++)
+		{
+			if (segmentCrossedPoints[i] == thisPoints[j])
+				return pair<bool, Point>(true, segmentCrossedPoints[i]);
+		}
+		
+	}
+	return pair<bool, Point>(false, Point(0,0));
+}
+
+Point Segment::getMiddle()
+{
+	vector<Point> points = getPoints();
+	return points[points.size() / 2];
+}
+
 void Segment::setStartPoint(Point start) { this->start = start; }
 void Segment::setEndPoint(Point end) { this->end = end; }
 void Segment::setColor(int color)
@@ -69,8 +102,8 @@ void Segment::translate(float xOffset, float yOffset, float zOffset)
 
 void Segment::rotate(double alpha, double beta, double gamma)
 {
-	start.translate(alpha, beta, gamma);
-	end.translate(alpha, beta, gamma);
+	start.rotate(alpha, beta, gamma);
+	end.rotate(alpha, beta, gamma);
 }
 
 void Segment::xRotation(double angle)
@@ -91,9 +124,16 @@ void Segment::zRotation(double angle)
 	end.Zrotation(angle);
 }
 
+bool Segment::segmentIsOutOfBounds(Ppm& image)
+{
+	return 	(start.isOutOfBounds(image) || end.isOutOfBounds(image));
+
+}
+
 void Segment::displayOn(Ppm& image)
 {
-	image.line(start.getXaxis(), start.getYaxis(),
+	if(!(start.isOutOfBounds(image) || end.isOutOfBounds(image)))
+		image.line(start.getXaxis(), start.getYaxis(),
 				end.getXaxis(), end.getYaxis(), 
 				color);
 }

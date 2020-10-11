@@ -61,6 +61,11 @@ void Point::setYaxis(float y) { this->yAxis = y; }
 void Point::setZaxis(float z) { this->zAxis = z; }
 void Point::setColor(int y)   { this->color = color; }
 
+bool Point::isOutOfBounds(Ppm& image)
+{
+	return (xAxis < 0 || xAxis > image.getWidth() || yAxis < 0 && yAxis > image.getHeight()) ;
+}
+
 
 
 void Point::homotethia(double ratio)
@@ -112,7 +117,7 @@ double** Point::getZRotationMatrix(double angle)
 	return matrix;
 }
 
-void Point::rotate(double** matrix)
+void Point::rotateWithMatrix(double** matrix)
 {
 	double x = xAxis * matrix[0][0] + yAxis * matrix[0][1] + zAxis * matrix[0][2];
 	double y = xAxis * matrix[1][0] + yAxis * matrix[1][1] + zAxis * matrix[1][2];
@@ -123,7 +128,7 @@ void Point::rotate(double** matrix)
 	zAxis = z;	
 }
 
-void Point::rotation(double alpha, double beta, double gamma)
+void Point::rotate(double alpha, double beta, double gamma)
 {
 	Xrotation(alpha);
 	Yrotation(beta);
@@ -133,19 +138,19 @@ void Point::rotation(double alpha, double beta, double gamma)
 void Point::Xrotation(double angle)
 {
 	angle *= (M_PI / 180);
-	rotate(getXRotationMatrix(angle));
+	rotateWithMatrix(getXRotationMatrix(angle));
 }
 
 void Point::Yrotation(double angle)
 {
 	angle *= (M_PI / 180);
-	rotate(getYRotationMatrix(angle));
+	rotateWithMatrix(getYRotationMatrix(angle));
 }
 
 void Point::Zrotation(double angle)
 {
 	angle *= (M_PI / 180);
-	rotate(getZRotationMatrix(angle));
+	rotateWithMatrix(getZRotationMatrix(angle));
 }
 
 

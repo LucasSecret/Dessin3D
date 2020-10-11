@@ -53,32 +53,36 @@ int main()
 	cer.afficher(im);
 */
 
-	Segment segment(Point(100, 50), Point(100, 150), BLUE);
-	Segment segment2(Point(50, 100), Point(150, 100), BLUE);
+	Segment segment(Point(128, 64), Point(128, 192), BLUE);
+	Segment segment2(Point(64, 128), Point(192, 128), BLUE);
 
 	segment.displayOn(image);
 	segment2.displayOn(image);
 
 	vector<Segment> segments;
-	segments.push_back(Segment(Point(50, 50), Point(150, 50), YELLOW));
-	segments.push_back(Segment(Point(150, 50), Point(150, 150), YELLOW));
-	segments.push_back(Segment(Point(150, 150), Point(50, 150), YELLOW));
-	segments.push_back(Segment(Point(50, 150), Point(50, 50), YELLOW));
+	segments.push_back(Segment(Point(64, 64), Point(192, 64), YELLOW));
+	segments.push_back(Segment(Point(192, 64), Point(192, 192), YELLOW));
+	segments.push_back(Segment(Point(192, 192), Point(64, 192), YELLOW));
+	segments.push_back(Segment(Point(64, 192), Point(64, 64), YELLOW));
 
-	SquareFace face(segments);
+	SquareFace face(segments, YELLOW);
 	face.displayEdgesOn(image);
 
-	Circle circle(100, 100, 0, 50, GREEN);
+	Circle circle(128, 128, 0, 64, GREEN);
 	addShapeOnImage(circle.getPoints(), image);
 
 
 	segments.clear();
 
-	SquareFace faceFull(Point(10,10), 20, WHITE);
-	faceFull.displayFullFaceOn(image);
-	SquareFace edges(Point(10, 10), 20, RED);
-	edges.displayEdgesOn(image);
+	SquareFace faceFull(Point(128,32,0), 20, WHITE);
+	SquareFace edges(Point(128, 32, 0), 20, RED);
 
+	faceFull.rotate(0, 0, 45);
+	edges.rotate(0, 0, 45);
+
+	edges.displayEdgesOn(image);
+	faceFull.displayFullFaceOn(image);
+	
 
 	
 	createImage(image);

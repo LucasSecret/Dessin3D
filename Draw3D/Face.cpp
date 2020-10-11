@@ -94,10 +94,10 @@ SquareFace::SquareFace(Point point, int width, int color)
 
 	this->color = color;
 	segments = new Segment[numberOfSegment];
-	segments[0] = Segment(Point(point.getXaxis(), point.getYaxis()), Point(point.getXaxis() + width, point.getYaxis()), color);
-	segments[1] = Segment(Point(point.getXaxis() + width, point.getYaxis()), Point(point.getXaxis() + width, point.getYaxis() + width), color);
-	segments[2] = Segment(Point(point.getXaxis() + width, point.getYaxis() + width), Point(point.getXaxis(), point.getYaxis() + width), color);
-	segments[3] = Segment(Point(point.getXaxis(), point.getYaxis() + width), Point(point.getXaxis(), point.getYaxis()), color);
+	segments[0] = Segment(Point(point.getXaxis(), point.getYaxis(), point.getZaxis()), Point(point.getXaxis() + width, point.getYaxis(), point.getZaxis()), color);
+	segments[1] = Segment(Point(point.getXaxis() + width, point.getYaxis(), point.getZaxis()), Point(point.getXaxis() + width, point.getYaxis() + width, point.getZaxis()), color);
+	segments[2] = Segment(Point(point.getXaxis() + width, point.getYaxis() + width, point.getZaxis()), Point(point.getXaxis(), point.getYaxis() + width, point.getZaxis()), color);
+	segments[3] = Segment(Point(point.getXaxis(), point.getYaxis() + width, point.getZaxis()), Point(point.getXaxis(), point.getYaxis(), point.getZaxis()), color);
 }
 
 
@@ -116,7 +116,7 @@ int SquareFace::getWidth()
 }
 
 
-Point SquareFace::getTopLeftCorner()
+Point SquareFace::getLeftCorner()
 {
 	int minX = segments[0].getStartPoint().getXaxis();
 	int minY = segments[0].getStartPoint().getYaxis();
@@ -124,14 +124,11 @@ Point SquareFace::getTopLeftCorner()
 
 	for (int i = 0; i < numberOfSegment; i++)
 	{
-		if(minX > segments[0].getStartPoint().getXaxis())
-			minX = segments[0].getStartPoint().getXaxis();
-
-		if(minY < segments[0].getStartPoint().getYaxis())
-			minY = segments[0].getStartPoint().getYaxis();
-
-		if (minZ < segments[0].getStartPoint().getZaxis())
-			minZ = segments[0].getStartPoint().getZaxis();
+		if (minX > segments[i].getStartPoint().getXaxis())
+		{
+			minX = segments[i].getStartPoint().getXaxis();
+			minY = segments[i].getStartPoint().getYaxis();
+		}
 	}		
 
 	return Point(minX, minY, minZ);
@@ -182,9 +179,13 @@ int SquareFace::displayFaceRecursively(bool** pointsDisplayed, Point topLeftCorn
 	if (pointsDisplayed[x][y])
 		return 0;
 
-	image.setpixel(currentPoint.getXaxis(), currentPoint.getYaxis(), color);
-	pointsDisplayed[x][y] = true;
+	if (!currentPoint.isOutOfBounds(image))
+	{
+		image.setpixel(currentPoint.getXaxis(), currentPoint.getYaxis(), color);
+		pointsDisplayed[x][y] = true;
+	}
 
+	else { return 0; }
 
 	displayFaceRecursively(pointsDisplayed, topLeftCorner, currentPoint.getNorthNeighbor(), image);
 	displayFaceRecursively(pointsDisplayed, topLeftCorner, currentPoint.getEastNeighbor(), image);
@@ -197,12 +198,11 @@ int SquareFace::displayFaceRecursively(bool** pointsDisplayed, Point topLeftCorn
 void SquareFace::displayFullFaceOn(Ppm& image)
 {
 
-
 	int width = getWidth();
 	bool** arePointDisplayed = new bool* [width+1];
 
 	Point centerPoint;
-	Point topLeftPoint = getTopLeftCorner();
+	Point topLeftPoint = getLeftCorner();
 	centerPoint.setXaxis(topLeftPoint.getXaxis() + width/2);
 	centerPoint.setYaxis(topLeftPoint.getYaxis() + width/2);
 
