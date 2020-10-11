@@ -89,6 +89,17 @@ SquareFace::SquareFace(Point p1, Point p2, Point p3, Point p4, int color)
 	segments[3] = Segment(p4, p1);
 }
 
+SquareFace::SquareFace(Point point, int width, int color)
+{
+
+	this->color = color;
+	segments = new Segment[numberOfSegment];
+	segments[0] = Segment(Point(point.getXaxis(), point.getYaxis()), Point(point.getXaxis() + width, point.getYaxis()), color);
+	segments[1] = Segment(Point(point.getXaxis() + width, point.getYaxis()), Point(point.getXaxis() + width, point.getYaxis() + width), color);
+	segments[2] = Segment(Point(point.getXaxis() + width, point.getYaxis() + width), Point(point.getXaxis(), point.getYaxis() + width), color);
+	segments[3] = Segment(Point(point.getXaxis(), point.getYaxis() + width), Point(point.getXaxis(), point.getYaxis()), color);
+}
+
 
 int SquareFace::getWidth()
 {
@@ -174,6 +185,7 @@ int SquareFace::displayFaceRecursively(bool** pointsDisplayed, Point topLeftCorn
 	image.setpixel(currentPoint.getXaxis(), currentPoint.getYaxis(), color);
 	pointsDisplayed[x][y] = true;
 
+
 	displayFaceRecursively(pointsDisplayed, topLeftCorner, currentPoint.getNorthNeighbor(), image);
 	displayFaceRecursively(pointsDisplayed, topLeftCorner, currentPoint.getEastNeighbor(), image);
 	displayFaceRecursively(pointsDisplayed, topLeftCorner, currentPoint.getSouthNeighbor(), image);
@@ -187,21 +199,21 @@ void SquareFace::displayFullFaceOn(Ppm& image)
 
 
 	int width = getWidth();
-	bool** arePointDisplayed = new bool* [width];
+	bool** arePointDisplayed = new bool* [width+1];
 
 	Point centerPoint;
 	Point topLeftPoint = getTopLeftCorner();
 	centerPoint.setXaxis(topLeftPoint.getXaxis() + width/2);
-	centerPoint.setXaxis(topLeftPoint.getYaxis() + width/2);
-	centerPoint.setXaxis(topLeftPoint.getZaxis() + width/2);
+	centerPoint.setYaxis(topLeftPoint.getYaxis() + width/2);
 
-	Point currentPoint = topLeftPoint;
+	Point currentPoint = centerPoint;
 
-
-	for(int i=0; i<width; i++)
+	
+	for(int i=0; i<width+1; i++)
 	{
-		arePointDisplayed[i] = new bool[width];
-		for (int j = 0; j < width; j++)
+		arePointDisplayed[i] = new bool[width+1];
+		
+		for (int j = 0; j < width+1; j++)
 		{
 			if(i==0 || i == width || j==0 || j== width)
 				arePointDisplayed[i][j] = true; //set the border colored
@@ -212,7 +224,6 @@ void SquareFace::displayFullFaceOn(Ppm& image)
 	}
 
 	displayFaceRecursively(arePointDisplayed, topLeftPoint, currentPoint, image);
-
 }
 
 

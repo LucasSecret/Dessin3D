@@ -73,13 +73,12 @@ int main()
 
 
 	segments.clear();
-	segments.push_back(Segment(Point(10, 10), Point(50, 10), YELLOW));
-	segments.push_back(Segment(Point(50, 10), Point(50, 50), YELLOW));
-	segments.push_back(Segment(Point(50, 50), Point(10, 50), YELLOW));
-	segments.push_back(Segment(Point(10, 50), Point(10, 10), YELLOW));
 
-	SquareFace faceFull(segments, RED);
+	SquareFace faceFull(Point(10,10), 20, WHITE);
 	faceFull.displayFullFaceOn(image);
+	SquareFace edges(Point(10, 10), 20, RED);
+	edges.displayEdgesOn(image);
+
 
 	
 	createImage(image);

@@ -25,6 +25,7 @@ public :
 	SquareFace(Segment seg1, Segment seg2, Segment seg3, Segment seg4, int color);
 	SquareFace(Point p1, Point p2, Point p3, Point p4);
 	SquareFace(Point p1, Point p2, Point p3, Point p4, int color);
+	SquareFace(Point point, int width, int color);
 
 	int getWidth();
 	Point getTopLeftCorner();
