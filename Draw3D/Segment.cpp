@@ -51,6 +51,7 @@ vector<Point> Segment::getPoints()
 	//The 'b' in y=ax + b
 	double b =  currentPoint.getYaxis() - ratio * currentPoint.getXaxis();
 
+
 	while ((int)currentPoint.getXaxis() != (int)end.getXaxis() || (int)currentPoint.getYaxis() != (int)end.getYaxis())
 	{
 		//ax + b - y = 0
@@ -64,7 +65,6 @@ vector<Point> Segment::getPoints()
 
 			else
 				currentPoint.setXaxis(currentPoint.getXaxis() + 1);
-
 		}
 
 		else
@@ -75,7 +75,7 @@ vector<Point> Segment::getPoints()
 				currentPoint.setYaxis(currentPoint.getYaxis() - 1);
 		}
 		
-		cout << currentPoint;
+		//cout << currentPoint;
 		
 		list.push_back(currentPoint);
 	}
@@ -117,12 +117,12 @@ Point Segment::getMiddle()
 {
 
 	vector<Point> points = getPoints();
-	cout << points.size();
-	for (int i = 0; i < points.size(); i++)
-	{
-		//cout << points[i] << endl;
-	}
-	return points[points.size() / 2];
+	cout << "Taille : "<< points.size();
+
+	int middleSize = points.size()/2;
+	
+
+	return Point(0, 0, 0);
 }
 
 void Segment::setStartPoint(Point start) { this->start = start; }

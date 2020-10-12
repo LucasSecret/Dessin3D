@@ -139,8 +139,9 @@ Point SquareFace::getCenter()
 	int xAverage = 0, yAverage = 0;
 	for (int i = 0; i < numberOfSegment; i++)
 	{
-		xAverage += segments[i].getMiddle().getXaxis();
-		yAverage += segments[i].getMiddle().getYaxis();
+		Point segmentMiddle = segments[i].getMiddle();
+		xAverage += segmentMiddle.getXaxis();
+		yAverage += segmentMiddle.getYaxis();
 	}
 
 	return Point(xAverage, yAverage);
@@ -214,7 +215,6 @@ void SquareFace::displayFullFaceOn(Ppm& image)
 
 	Point centerPoint = getCenter();
 
-	cout << "Oui";
 	centerPoint.displayOn(image);
 
 
