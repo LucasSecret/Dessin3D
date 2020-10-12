@@ -134,17 +134,19 @@ Point SquareFace::getLeftCorner()
 	return Point(minX, minY, minZ);
 }
 
-Point SquareFace::getCenter()
+Point SquareFace::getCenter(Ppm& image)
 {
 	int xAverage = 0, yAverage = 0;
+	//Sum all the middle of segments composing the square, and the average point will be the center point 
 	for (int i = 0; i < numberOfSegment; i++)
 	{
 		Point segmentMiddle = segments[i].getMiddle();
 		xAverage += segmentMiddle.getXaxis();
 		yAverage += segmentMiddle.getYaxis();
+		//segmentMiddle.displayOn(image);
 	}
 
-	return Point(xAverage, yAverage);
+	return Point(xAverage/ numberOfSegment, yAverage/ numberOfSegment);
 }
 
 
@@ -213,7 +215,7 @@ void SquareFace::displayFullFaceOn(Ppm& image)
 	int width = getWidth();
 	bool** arePointDisplayed = new bool* [width+1];
 
-	Point centerPoint = getCenter();
+	Point centerPoint = getCenter(image);
 
 	centerPoint.displayOn(image);
 

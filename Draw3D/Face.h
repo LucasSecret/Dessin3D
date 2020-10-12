@@ -29,7 +29,7 @@ public :
 
 	int getWidth();
 	Point getLeftCorner();
-	Point getCenter();
+	Point getCenter(Ppm& image);
 
 	void translate(float xOffset, float yOffset, float zOffset);
 	void rotate(double alpha, double beta, double gamma);

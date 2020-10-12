@@ -29,36 +29,49 @@ vector<Point> Segment::getPoints()
 {
 	vector<Point> list;
 	Point currentPoint;
-	cout << endl << "----------------------------------------------" << endl;
-	if (start.getXaxis() <= end.getXaxis())
+	Point destination;
+	cout << "\n\n\n----------------------------------------------\n\n\n";
+
+	//Chose the left point as start, the top point if x is equal for the two points 
+	if (start.getXaxis() < end.getXaxis() 
+		|| (start.getXaxis() == end.getXaxis() && start.getYaxis() < end.getYaxis()))
 	{
 		currentPoint = start;
+		destination = end;
 		cout << "Start : " << currentPoint;
 		cout << "Destination : " << end;
 	}
 	else
 	{
 		currentPoint = end;
+		destination = start;
 		cout << "Start : " << endl << currentPoint;
 		cout << "Destination : " << endl << start;
 	}
-
+	
+	currentPoint.setColor(color);
 	//The 'a' in the y=ax + b
-	// a = yb - ya / xb - xa
-	double ratio = (double)(((double)end.getYaxis() - (double)start.getYaxis()) / ((double)end.getXaxis() - (double)start.getXaxis()));
-//	cout << "Ratio : " << end.getYaxis() << "-" << start.getYaxis() << "/" << end.getXaxis()<< "-" << start.getXaxis() << "=" << ratio <<endl;
+	double ratio;
+
+	if (currentPoint.getXaxis() == destination.getXaxis())
+		ratio = 0;
+	else
+		ratio = (double)(((double)end.getYaxis() - (double)start.getYaxis()) / ((double)end.getXaxis() - (double)start.getXaxis()));
+		// a = yb - ya / xb - xa
+	
+	
+	//cout << "Ratio : " << end.getYaxis() << "-" << start.getYaxis() << "/" << end.getXaxis()<< "-" << start.getXaxis() << "=" << ratio <<endl;
 
 	//The 'b' in y=ax + b
 	double b =  currentPoint.getYaxis() - ratio * currentPoint.getXaxis();
 
-
-	while ((int)currentPoint.getXaxis() != (int)end.getXaxis() || (int)currentPoint.getYaxis() != (int)end.getYaxis())
+	while ((int)currentPoint.getXaxis() != (int)destination.getXaxis() || (int)currentPoint.getYaxis() != (int)destination.getYaxis())
 	{
 		//ax + b - y = 0
 		double equation = ratio*currentPoint.getXaxis() + b - currentPoint.getYaxis();
 		//cout << ratio << "*" << currentPoint.getXaxis() << " + " << start.getYaxis() << " - " << currentPoint.getYaxis() << " = " << equation;
 		//cout << endl << equation << endl;
-		if (ratio >= 0)
+		if (ratio > 0)
 		{
 			if (equation > 0) //so we're under the line
 				currentPoint.setYaxis(currentPoint.getYaxis() + 1);
@@ -67,15 +80,22 @@ vector<Point> Segment::getPoints()
 				currentPoint.setXaxis(currentPoint.getXaxis() + 1);
 		}
 
+		else if(ratio < 0)
+		{
+			if (equation <= 0) //so we're under the line
+				currentPoint.setYaxis(currentPoint.getYaxis() - 1);
+			else
+				currentPoint.setXaxis(currentPoint.getXaxis() + 1);
+		}
+		//If ratio == 0, it means x or y ar equals for the two points
 		else
 		{
-			if (equation > 0) //so we're under the line
-				currentPoint.setXaxis(currentPoint.getXaxis() + 1);
+			if(currentPoint.getXaxis() == destination.getXaxis())
+				currentPoint.setYaxis(currentPoint.getYaxis() + 1);
+			
 			else
-				currentPoint.setYaxis(currentPoint.getYaxis() - 1);
+				currentPoint.setXaxis(currentPoint.getXaxis() + 1);
 		}
-		
-		//cout << currentPoint;
 		
 		list.push_back(currentPoint);
 	}
@@ -97,6 +117,7 @@ bool Segment::pointIsInSegment(Point p)
 	return false;
 }
 
+//If this segment crossing another, return true and the crossing point
 pair<bool, Point> Segment::isCrossing(Segment segment)
 {
 	vector<Point> segmentCrossedPoints = segment.getPoints();
@@ -113,6 +134,7 @@ pair<bool, Point> Segment::isCrossing(Segment segment)
 	return pair<bool, Point>(false, Point(0,0));
 }
 
+//Get all points that have been made for the segment between start and end, and return the middle point
 Point Segment::getMiddle()
 {
 
@@ -120,9 +142,8 @@ Point Segment::getMiddle()
 	cout << "Taille : "<< points.size();
 
 	int middleSize = points.size()/2;
-	
 
-	return Point(0, 0, 0);
+	return points[middleSize-1];
 }
 
 void Segment::setStartPoint(Point start) { this->start = start; }
