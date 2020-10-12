@@ -134,6 +134,18 @@ Point SquareFace::getLeftCorner()
 	return Point(minX, minY, minZ);
 }
 
+Point SquareFace::getCenter()
+{
+	int xAverage = 0, yAverage = 0;
+	for (int i = 0; i < numberOfSegment; i++)
+	{
+		xAverage += segments[i].getMiddle().getXaxis();
+		yAverage += segments[i].getMiddle().getYaxis();
+	}
+
+	return Point(xAverage, yAverage);
+}
+
 
 void SquareFace::translate(float xOffset, float yOffset, float zOffset)
 {
@@ -197,18 +209,20 @@ int SquareFace::displayFaceRecursively(bool** pointsDisplayed, Point topLeftCorn
 
 void SquareFace::displayFullFaceOn(Ppm& image)
 {
-
 	int width = getWidth();
 	bool** arePointDisplayed = new bool* [width+1];
 
-	Point centerPoint;
+	Point centerPoint = getCenter();
+
+	cout << "Oui";
+	centerPoint.displayOn(image);
+
+
 	Point topLeftPoint = getLeftCorner();
-	centerPoint.setXaxis(topLeftPoint.getXaxis() + width/2);
-	centerPoint.setYaxis(topLeftPoint.getYaxis() + width/2);
 
 	Point currentPoint = centerPoint;
 
-	
+	/*
 	for(int i=0; i<width+1; i++)
 	{
 		arePointDisplayed[i] = new bool[width+1];
@@ -224,6 +238,7 @@ void SquareFace::displayFullFaceOn(Ppm& image)
 	}
 
 	displayFaceRecursively(arePointDisplayed, topLeftPoint, currentPoint, image);
+	*/
 }
 
 

@@ -60,6 +60,7 @@ public:
 	Point& operator+(Point& point);
 	bool operator==(const Point& point) const;
 
+	void displayOn(Ppm& image);
 	friend ostream& operator<<(ostream& stream, Point& point);
 };
 

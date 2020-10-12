@@ -205,6 +205,12 @@ bool Point::operator==(const Point& point) const
 	return false;
 }
 
+void Point::displayOn(Ppm& image)
+{
+	if (!isOutOfBounds(image))
+		image.setpixel(xAxis, yAxis, color);
+}
+
 ostream& operator<<(ostream& stream, Point& point)
 {
 	stream << "Coordonnee x : " << point.xAxis << endl;
