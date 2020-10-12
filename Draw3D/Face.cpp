@@ -4,6 +4,8 @@ SquareFace::SquareFace()
 {
 	segments = new Segment[numberOfSegment];
 	color = GREEN;
+
+	calculateCenter();
 }
 
 SquareFace::SquareFace(Segment* segments)
@@ -14,6 +16,7 @@ SquareFace::SquareFace(Segment* segments)
 	for (int i = 0; i < numberOfSegment; i++)
 		this->segments[i] = segments[i];
 
+	calculateCenter();
 }
 
 SquareFace::SquareFace(vector<Segment> segments)
@@ -24,6 +27,8 @@ SquareFace::SquareFace(vector<Segment> segments)
 
 	for (int i = 0; i < numberOfSegment; i++)
 		this->segments[i] = segments[i];
+
+	calculateCenter();
 }
 
 SquareFace::SquareFace(Segment* segments, int color)
@@ -34,6 +39,8 @@ SquareFace::SquareFace(Segment* segments, int color)
 	for (int i = 0; i < numberOfSegment; i++)
 		this->segments[i] = segments[i];
 
+	calculateCenter();
+
 }
 
 SquareFace::SquareFace(vector<Segment> segments, int color)
@@ -43,6 +50,8 @@ SquareFace::SquareFace(vector<Segment> segments, int color)
 	this->segments = new Segment[numberOfSegment];
 	for (int i = 0; i < numberOfSegment; i++)
 		this->segments[i] = segments[i];
+
+	calculateCenter();
 }
 
 SquareFace::SquareFace(Segment seg1, Segment seg2, Segment seg3, Segment seg4)
@@ -55,6 +64,7 @@ SquareFace::SquareFace(Segment seg1, Segment seg2, Segment seg3, Segment seg4)
 	segments[2] = seg3;
 	segments[3] = seg4;
 
+	calculateCenter();
 }
 
 SquareFace::SquareFace(Segment seg1, Segment seg2, Segment seg3, Segment seg4, int color)
@@ -67,6 +77,7 @@ SquareFace::SquareFace(Segment seg1, Segment seg2, Segment seg3, Segment seg4, i
 	segments[2] = seg3;
 	segments[3] = seg4;
 
+	calculateCenter();
 }
 
 SquareFace::SquareFace(Point p1, Point p2, Point p3, Point p4)
@@ -77,6 +88,7 @@ SquareFace::SquareFace(Point p1, Point p2, Point p3, Point p4)
 	segments[1] = Segment(p2, p3);
 	segments[2] = Segment(p3, p4);
 	segments[3] = Segment(p4, p1);
+	calculateCenter();
 }
 
 SquareFace::SquareFace(Point p1, Point p2, Point p3, Point p4, int color)
@@ -87,6 +99,7 @@ SquareFace::SquareFace(Point p1, Point p2, Point p3, Point p4, int color)
 	segments[1] = Segment(p2, p3);
 	segments[2] = Segment(p3, p4);
 	segments[3] = Segment(p4, p1);
+	calculateCenter();
 }
 
 SquareFace::SquareFace(Point point, int width, int color)
@@ -98,6 +111,7 @@ SquareFace::SquareFace(Point point, int width, int color)
 	segments[1] = Segment(Point(point.getXaxis() + width, point.getYaxis(), point.getZaxis()), Point(point.getXaxis() + width, point.getYaxis() + width, point.getZaxis()), color);
 	segments[2] = Segment(Point(point.getXaxis() + width, point.getYaxis() + width, point.getZaxis()), Point(point.getXaxis(), point.getYaxis() + width, point.getZaxis()), color);
 	segments[3] = Segment(Point(point.getXaxis(), point.getYaxis() + width, point.getZaxis()), Point(point.getXaxis(), point.getYaxis(), point.getZaxis()), color);
+	calculateCenter();
 }
 
 
@@ -205,7 +219,6 @@ bool SquareFace::pointIsOnEdge(Point point)
 
 int SquareFace::displayFaceRecursively(vector<Point>& displayedPoint, Point currentPoint, Ppm& image)
 {
-
 	if (pointIsAlreadyDisplayed(displayedPoint, currentPoint))
 		return 0;
 
