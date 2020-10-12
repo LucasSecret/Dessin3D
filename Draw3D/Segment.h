@@ -9,9 +9,12 @@ class Segment
 {
 private :
 	Point start, end;
+	vector<Point> allPoints;
 	int color;
 
 	bool segmentIsOutOfBounds(Ppm& image);
+	void calculateAllPoints();
+
 public:
 	Segment();
 	Segment(Point start, Point end);
@@ -38,7 +41,6 @@ public:
 
 	void displayOn(Ppm& image);
 
-	
 	friend ostream& operator<<(ostream& stream, Segment& segment);
 };
 

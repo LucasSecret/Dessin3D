@@ -115,7 +115,7 @@ int SquareFace::getWidth()
 	return abs(maxX - minX);
 }
 
-
+//UNUSED -> Delete it
 Point SquareFace::getLeftCorner()
 {
 	int minX = segments[0].getStartPoint().getXaxis();
@@ -134,7 +134,7 @@ Point SquareFace::getLeftCorner()
 	return Point(minX, minY, minZ);
 }
 
-Point SquareFace::getCenter(Ppm& image)
+void SquareFace::calculateCenter()
 {
 	int xAverage = 0, yAverage = 0;
 	//Sum all the middle of segments composing the square, and the average point will be the center point 
@@ -146,7 +146,12 @@ Point SquareFace::getCenter(Ppm& image)
 		//segmentMiddle.displayOn(image);
 	}
 
-	return Point(xAverage/ numberOfSegment, yAverage/ numberOfSegment);
+	center = Point(xAverage / numberOfSegment, yAverage / numberOfSegment);
+}
+
+Point SquareFace::getCenter()
+{
+	return center;
 }
 
 
@@ -159,9 +164,13 @@ void SquareFace::translate(float xOffset, float yOffset, float zOffset)
 
 void SquareFace::rotate(double alpha, double beta, double gamma)
 {
-	for (int i = 0; i < numberOfSegment; i++)
-		segments[i].rotate(alpha, beta, gamma);
 	
+
+	for (int i = 0; i < numberOfSegment; i++)
+	{
+		segments[i].translate()
+		segments[i].rotate(alpha, beta, gamma);
+	}
 }
 
 void SquareFace::displayEdgesOn(Ppm& image)
@@ -171,41 +180,49 @@ void SquareFace::displayEdgesOn(Ppm& image)
 	
 }
 
-bool SquareFace::pointIsOnEdge(Point point)
+bool pointIsAlreadyDisplayed(vector<Point> displayedPoint, Point currentPoint)
 {
-	for (int i = 0; i < numberOfSegment; i++)
+	for (int i = 0; i < displayedPoint.size(); i++)
 	{
-		if (point.getXaxis() == segments[i].getStartPoint().getXaxis()
-			|| point.getYaxis() == segments[i].getStartPoint().getYaxis())
+		if (displayedPoint[i] == currentPoint)
 			return true;
 	}
 
 	return false;
 }
 
-int SquareFace::displayFaceRecursively(bool** pointsDisplayed, Point topLeftCorner, Point currentPoint, Ppm& image)
+bool SquareFace::pointIsOnEdge(Point point)
 {
-	if(pointIsOnEdge(currentPoint))
-		return 0;
-	
-	int x = currentPoint.getXaxis() - topLeftCorner.getXaxis();
-	int y = currentPoint.getYaxis() - topLeftCorner.getYaxis();
+	for (int i = 0; i < numberOfSegment; i++)
+	{
+		if (segments[i].pointIsInSegment(point))
+			return true;
+	}
 
-	if (pointsDisplayed[x][y])
+	return false;
+}
+
+int SquareFace::displayFaceRecursively(vector<Point>& displayedPoint, Point currentPoint, Ppm& image)
+{
+	if (pointIsAlreadyDisplayed(displayedPoint, currentPoint))
 		return 0;
 
+	if (pointIsOnEdge(currentPoint))
+		return 0;
+
+
+	//cout << "x : " << currentPoint.getXaxis() << "   y : " << currentPoint.getYaxis() << endl;
 	if (!currentPoint.isOutOfBounds(image))
 	{
 		image.setpixel(currentPoint.getXaxis(), currentPoint.getYaxis(), color);
-		pointsDisplayed[x][y] = true;
+		displayedPoint.push_back(currentPoint);
 	}
+	else return 0; 
 
-	else { return 0; }
-
-	displayFaceRecursively(pointsDisplayed, topLeftCorner, currentPoint.getNorthNeighbor(), image);
-	displayFaceRecursively(pointsDisplayed, topLeftCorner, currentPoint.getEastNeighbor(), image);
-	displayFaceRecursively(pointsDisplayed, topLeftCorner, currentPoint.getSouthNeighbor(), image);
-	displayFaceRecursively(pointsDisplayed, topLeftCorner, currentPoint.getWestNeighbor(), image);
+	displayFaceRecursively(displayedPoint, currentPoint.getNorthNeighbor(), image);
+	displayFaceRecursively(displayedPoint, currentPoint.getEastNeighbor(), image);
+	displayFaceRecursively(displayedPoint, currentPoint.getSouthNeighbor(), image);
+	displayFaceRecursively(displayedPoint, currentPoint.getWestNeighbor(), image);
 
 	return 0;
 }
@@ -213,34 +230,33 @@ int SquareFace::displayFaceRecursively(bool** pointsDisplayed, Point topLeftCorn
 void SquareFace::displayFullFaceOn(Ppm& image)
 {
 	int width = getWidth();
-	bool** arePointDisplayed = new bool* [width+1];
+	vector<Point> displayedPoints;
 
 	Point centerPoint = getCenter(image);
 
-	centerPoint.displayOn(image);
+	//centerPoint.displayOn(image);
 
-
-	Point topLeftPoint = getLeftCorner();
+	//Point topLeftPoint = getLeftCorner();
 
 	Point currentPoint = centerPoint;
 
-	/*
-	for(int i=0; i<width+1; i++)
-	{
-		arePointDisplayed[i] = new bool[width+1];
-		
-		for (int j = 0; j < width+1; j++)
-		{
-			if(i==0 || i == width || j==0 || j== width)
-				arePointDisplayed[i][j] = true; //set the border colored
+	//
+	//for(int i=0; i<width+1; i++)
+	//{
+	//	arePointDisplayed[i] = new bool[width+1];
+	//	
+	//	for (int j = 0; j < width+1; j++)
+	//	{
+	//		if(i==0 || i == width || j==0 || j== width)
+	//			arePointDisplayed[i][j] = true; //set the border colored
 
-			else
-				arePointDisplayed[i][j] = false;
-		}
-	}
+	//		else
+	//			arePointDisplayed[i][j] = false;
+	//	}
+	//}
 
-	displayFaceRecursively(arePointDisplayed, topLeftPoint, currentPoint, image);
-	*/
+	displayFaceRecursively(displayedPoints, currentPoint, image);
+	
 }
 
 

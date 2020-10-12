@@ -44,7 +44,7 @@ public:
 	//affecte la couleur 'color' au pixel de coordonnees (I,J)
 	void setpixel(SHORT J, SHORT I, ULONG color)
 	{
-
+		//cout << "I:" << I << "     J:" << J << endl;
 		assert((I >= 0) && (I < height) && (J >= 0) && (J < width));
 
 		LONG ind = 3 * (I * width + J);

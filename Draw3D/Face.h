@@ -10,11 +10,12 @@ private :
 	Segment* segments;
 	int numberOfSegment = 4;
 	int color;
+	Point center;
 
-	int displayFaceRecursively(bool** pointsDisplayed, Point topLeftCorner, Point currentPoint, Ppm& image);
+	int displayFaceRecursively(vector<Point>& pointsDisplayed, Point currentPoint, Ppm& image);
 	
 	bool pointIsOnEdge(Point point);
-
+	void calculateCenter();
 public :
 	SquareFace();
 	SquareFace(Segment* segments);
@@ -29,7 +30,7 @@ public :
 
 	int getWidth();
 	Point getLeftCorner();
-	Point getCenter(Ppm& image);
+	Point getCenter();
 
 	void translate(float xOffset, float yOffset, float zOffset);
 	void rotate(double alpha, double beta, double gamma);

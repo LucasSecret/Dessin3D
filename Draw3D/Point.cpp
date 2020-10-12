@@ -9,38 +9,44 @@ Point::Point()
 	this->yAxis = 0;
 	this->zAxis = 0;
 	this->color = BLUE;
+	this->isDisplayed = false;
 }
 
-Point::Point(float x, float y, float z)
+Point::Point(SHORT x, SHORT y, SHORT z)
 {
 	this->xAxis = x;
 	this->yAxis = y;
 	this->zAxis = z;
 	this->color = BLUE;
+	this->isDisplayed = false;
 }
 
-Point::Point(float x, float y, float z, int color)
+Point::Point(SHORT x, SHORT y, SHORT z, int color)
 {
 	this->xAxis = x;
 	this->yAxis = y;
 	this->zAxis = z;
 	this->color = color;
+	this->isDisplayed = false;
 }
 
-Point::Point(float x, float y, int color)
+Point::Point(SHORT x, SHORT y, int color)
 {
 	this->xAxis = x;
 	this->yAxis = y;
 	this->zAxis = 0;
-	this->color = color;
+	this->color = color;	
+	this->isDisplayed = false;
+
 }
 
-Point::Point(float x, float y)
+Point::Point(SHORT x, SHORT y)
 {
-	this->xAxis = x;
-	this->yAxis = y;
-	this->zAxis = 0;
-	this->color = BLUE;
+	xAxis = x;
+	yAxis = y;
+	zAxis = 0;
+	color = BLUE;
+	isDisplayed = false;
 }
 
 Point::Point(const Point& copy)
@@ -49,21 +55,23 @@ Point::Point(const Point& copy)
 	yAxis = copy.yAxis;
 	zAxis = copy.zAxis;
 	color = copy.color;
+	isDisplayed = false;
 }
 
-float Point::getXaxis() { return xAxis; }
-float Point::getYaxis() { return yAxis; }
-float Point::getZaxis() { return zAxis; }
+int Point::getXaxis() { return xAxis; }
+int Point::getYaxis() { return yAxis; }
+int Point::getZaxis() { return zAxis; }
 int   Point::getColor() { return color; }
+bool  Point::isAlreadyDisplayed() { return isDisplayed; }
 
-void Point::setXaxis(float x) { this->xAxis = x; }
-void Point::setYaxis(float y) { this->yAxis = y; }
-void Point::setZaxis(float z) { this->zAxis = z; }
+void Point::setXaxis(int x) { this->xAxis = x; }
+void Point::setYaxis(int y) { this->yAxis = y; }
+void Point::setZaxis(int z) { this->zAxis = z; }
 void Point::setColor(int y)   { this->color = color; }
 
 bool Point::isOutOfBounds(Ppm& image)
 {
-	return (xAxis < 0 || xAxis > image.getWidth() || yAxis < 0 && yAxis > image.getHeight()) ;
+	return (xAxis < 0 || xAxis >= image.getWidth() || yAxis < 0 || yAxis >= image.getHeight()) ;
 }
 
 
@@ -199,7 +207,7 @@ Point& Point::operator+(Point& point)
 bool Point::operator==(const Point& point) const
 {
 	if (xAxis == point.xAxis
-		&& yAxis == point.xAxis
+		&& yAxis == point.yAxis
 		&& zAxis == point.zAxis)
 		return true;
 	return false;
@@ -208,7 +216,10 @@ bool Point::operator==(const Point& point) const
 void Point::displayOn(Ppm& image)
 {
 	if (!isOutOfBounds(image))
+	{
 		image.setpixel(xAxis, yAxis, color);
+		isDisplayed = true;
+	}
 }
 
 ostream& operator<<(ostream& stream, Point& point)

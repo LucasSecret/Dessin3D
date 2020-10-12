@@ -9,8 +9,8 @@ Circle::Circle(float x, float y, float z, float radius, int color) : Point(x, y,
 {
 	this->radius = radius;
 }
-
-Circle::Circle(float x, float y, float z, float radius) : Point(x, y, z)
+																//avoid ambigus constructor
+Circle::Circle(float x, float y, float z, float radius) : Point((SHORT)x, (SHORT)y, (SHORT)z)
 {
 	this->radius = radius;
 }

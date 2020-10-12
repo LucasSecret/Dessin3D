@@ -12,32 +12,33 @@ private :
 	double** getXRotationMatrix(double angle);
 	double** getYRotationMatrix(double angle);
 	double** getZRotationMatrix(double angle);
-
 	void rotateWithMatrix(double** matrix);
 
 protected:
-	float xAxis;
-	float yAxis;
-	float zAxis;
+	int xAxis;
+	int yAxis;
+	int zAxis;
 	int color;
+	bool isDisplayed;
 
 
 public:
 	Point();
-	Point(float x, float y, float z);
-	Point(float x, float y, float z, int color);
-	Point(float x, float y, int color);
-	Point(float x, float y);
+	Point(SHORT x, SHORT y, SHORT z);
+	Point(SHORT x, SHORT y, SHORT z, int color);
+	Point(SHORT x, SHORT y, int color);
+	Point(SHORT x, SHORT y);
 	Point(const Point& copy);
 
 
-	float getXaxis();
-	float getYaxis();
-	float getZaxis();
+	int getXaxis();
+	int getYaxis();
+	int getZaxis();
 	int   getColor();
-	void setXaxis(float x);
-	void setYaxis(float y);
-	void setZaxis(float z);
+	bool isAlreadyDisplayed();
+	void setXaxis(int x);
+	void setYaxis(int y);
+	void setZaxis(int z);
 	void setColor(int color);
 
 	bool isOutOfBounds(Ppm& image);
