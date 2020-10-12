@@ -160,17 +160,18 @@ void SquareFace::translate(float xOffset, float yOffset, float zOffset)
 	for (int i = 0; i < numberOfSegment; i++)
 		segments[i].translate(xOffset, yOffset, zOffset);
 
+	calculateCenter();
 }
 
 void SquareFace::rotate(double alpha, double beta, double gamma)
 {
-	
-
 	for (int i = 0; i < numberOfSegment; i++)
 	{
-		segments[i].translate()
+		segments[i].translate(-center.getXaxis(), -center.getYaxis(), 0);
 		segments[i].rotate(alpha, beta, gamma);
+		segments[i].translate(center.getXaxis(), center.getYaxis(), 0);
 	}
+	calculateCenter();
 }
 
 void SquareFace::displayEdgesOn(Ppm& image)
@@ -204,12 +205,14 @@ bool SquareFace::pointIsOnEdge(Point point)
 
 int SquareFace::displayFaceRecursively(vector<Point>& displayedPoint, Point currentPoint, Ppm& image)
 {
+
 	if (pointIsAlreadyDisplayed(displayedPoint, currentPoint))
 		return 0;
 
 	if (pointIsOnEdge(currentPoint))
+	{
 		return 0;
-
+	}
 
 	//cout << "x : " << currentPoint.getXaxis() << "   y : " << currentPoint.getYaxis() << endl;
 	if (!currentPoint.isOutOfBounds(image))
@@ -229,34 +232,10 @@ int SquareFace::displayFaceRecursively(vector<Point>& displayedPoint, Point curr
 
 void SquareFace::displayFullFaceOn(Ppm& image)
 {
-	int width = getWidth();
 	vector<Point> displayedPoints;
-
-	Point centerPoint = getCenter(image);
-
-	//centerPoint.displayOn(image);
-
-	//Point topLeftPoint = getLeftCorner();
-
-	Point currentPoint = centerPoint;
-
-	//
-	//for(int i=0; i<width+1; i++)
-	//{
-	//	arePointDisplayed[i] = new bool[width+1];
-	//	
-	//	for (int j = 0; j < width+1; j++)
-	//	{
-	//		if(i==0 || i == width || j==0 || j== width)
-	//			arePointDisplayed[i][j] = true; //set the border colored
-
-	//		else
-	//			arePointDisplayed[i][j] = false;
-	//	}
-	//}
+	Point currentPoint = center;
 
 	displayFaceRecursively(displayedPoints, currentPoint, image);
-	
 }
 
 

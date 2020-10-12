@@ -160,6 +160,11 @@ void Segment::translate(float xOffset, float yOffset, float zOffset)
 {
 	start.translate(xOffset, yOffset, zOffset);
 	end.translate(xOffset, yOffset, zOffset);
+	calculateAllPoints();
+
+	for (int i = 0; i < allPoints.size(); i++)
+		allPoints[i].translate(xOffset, yOffset, zOffset);
+
 }
 
 
@@ -167,7 +172,9 @@ void Segment::rotate(double alpha, double beta, double gamma)
 {
 	start.rotate(alpha, beta, gamma);
 	end.rotate(alpha, beta, gamma);
-	calculateAllPoints();
+
+	for (int i = 0; i < allPoints.size(); i++)
+		allPoints[i].rotate(alpha, beta, gamma);
 }
 
 void Segment::xRotation(double angle)

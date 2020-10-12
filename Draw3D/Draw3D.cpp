@@ -74,15 +74,15 @@ int main()
 
 	segments.clear();
 
-	SquareFace faceFull(Point(150, 32, 0), 20, RED);
-	SquareFace edges(Point(150, 32, 0), 20, WHITE);
+	SquareFace faceFull(Point(50, 150, 0), 20, RED);
+	SquareFace edges(Point(50, 150, 0), 20, WHITE);
 
-	faceFull.rotate(0, 0, 45);
-	edges.rotate(0, 0, 45);
+	//faceFull.rotate(0, 0, 45);
+	//edges.rotate(0, 0, 45);
 
 	edges.displayEdgesOn(image);
+
 	faceFull.displayFullFaceOn(image);
-	
 
 	
 	createImage(image);
