@@ -53,41 +53,63 @@ int main()
 	cer.afficher(im);
 */
 
+	//Cross
 	Segment segment(Point(128, 64), Point(128, 192), BLUE);
 	Segment segment2(Point(64, 128), Point(192, 128), BLUE);
 
 	segment.displayOn(image);
 	segment2.displayOn(image);
 
-	vector<Segment> segments;
+
+
+	vector<Segment> segments; //Big Square Segments
 	segments.push_back(Segment(Point(64, 64), Point(192, 64), YELLOW));
 	segments.push_back(Segment(Point(192, 64), Point(192, 192), YELLOW));
 	segments.push_back(Segment(Point(192, 192), Point(64, 192), YELLOW));
 	segments.push_back(Segment(Point(64, 192), Point(64, 64), YELLOW));
 
-	SquareFace face(segments, YELLOW);
+	SquareFace face(segments, YELLOW); //Big Square 
 	face.displayEdgesOn(image);
-
-	Circle circle(128, 128, 0, 64, GREEN);
-	addShapeOnImage(circle.getPoints(), image);
-
-
 	segments.clear();
 
-	SquareFace faceFull(Point(50, 150, 0), 20, RED);
-	SquareFace edges(Point(50, 150, 0), 20, WHITE);
 
-	//faceFull.rotate(0, 0, 45);
-	//edges.rotate(0, 0, 45);
 
-	edges.displayEdgesOn(image);
+	Circle circle(128, 128, 0, 64, GREEN); //Big Circle
+	circle.displayOn(image);
 
+
+	SquareFace faceFull(Point(114, 114, 0), 30, RED); //Little Square 1
+	SquareFace edges(Point(114, 114, 0), 30, WHITE);
+	SquareFace faceFull_1(faceFull);
+	SquareFace edges_1(edges);
+	faceFull.rotate(0, 0, 22.5); //Rotate
+	edges.rotate(0, 0, 22.5);
+	faceFull_1.rotate(0, 0, 87.5);
+	edges_1.rotate(0, 0, 87.5);
+	edges.displayEdgesOn(image); //Display
 	faceFull.displayFullFaceOn(image);
+	faceFull_1.displayEdgesOn(image);
+	edges_1.displayEdgesOn(image);
 
+	SquareFace faceFull2(Point(114, 114, 0), 30, YELLOW);//Little Square 2
+	SquareFace edges2(Point(114, 114, 0), 30, WHITE);
+
+	faceFull2.rotate(0, 0, 45);
+	edges2.rotate(0, 0, 45);
+
+	edges2.displayEdgesOn(image);
+	faceFull2.displayFullFaceOn(image);
+
+	SquareFace faceFull3(Point(114, 114, 0), 30, GREEN);//Little Square 3
+	SquareFace edges3(Point(114, 114, 0), 30, WHITE);
+
+	faceFull3.rotate(0, 0, 90);
+	edges3.rotate(0, 0, 90);
+
+	edges3.displayEdgesOn(image);
+	faceFull3.displayFullFaceOn(image);
 	
 	createImage(image);
-
-
 
 	return 0;
 }

@@ -39,5 +39,6 @@ public :
 
 	void displayFullFaceOn(Ppm& image);
 
+	~SquareFace();
 };
 

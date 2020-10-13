@@ -35,6 +35,8 @@ void Circle::displayOn(Ppm& image)
 	vector<Point> pointList = getPoints();
 	for (int i = 0; i < pointList.size(); i++)
 		image.setpixel(pointList[i].getXaxis(), pointList[i].getYaxis(), pointList[i].getColor());
+
+	cout << "--Circle displayed" << endl;
 }
 
 

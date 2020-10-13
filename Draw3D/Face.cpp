@@ -193,6 +193,8 @@ void SquareFace::displayEdgesOn(Ppm& image)
 	for (int i = 0; i < numberOfSegment; i++)
 		segments[i].displayOn(image);
 	
+	cout << "-Edge Square displayed" << endl;
+
 }
 
 bool pointIsAlreadyDisplayed(vector<Point> displayedPoint, Point currentPoint)
@@ -223,9 +225,8 @@ int SquareFace::displayFaceRecursively(vector<Point>& displayedPoint, Point curr
 		return 0;
 
 	if (pointIsOnEdge(currentPoint))
-	{
 		return 0;
-	}
+	
 
 	//cout << "x : " << currentPoint.getXaxis() << "   y : " << currentPoint.getYaxis() << endl;
 	if (!currentPoint.isOutOfBounds(image))
@@ -249,6 +250,13 @@ void SquareFace::displayFullFaceOn(Ppm& image)
 	Point currentPoint = center;
 
 	displayFaceRecursively(displayedPoints, currentPoint, image);
+	cout << "--Full Square displayed" << endl;
+
+}
+
+SquareFace::~SquareFace()
+{
+	delete[] segments;
 }
 
 

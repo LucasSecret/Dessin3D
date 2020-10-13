@@ -30,6 +30,7 @@ Segment::Segment(Point start, Point end, int color)
 
 void Segment::calculateAllPoints()
 {
+	allPoints.clear();
 	Point currentPoint;
 	Point destination;
 	//cout << "\n\n\n----------------------------------------------\n\n\n";
@@ -162,9 +163,6 @@ void Segment::translate(float xOffset, float yOffset, float zOffset)
 	end.translate(xOffset, yOffset, zOffset);
 	calculateAllPoints();
 
-	for (int i = 0; i < allPoints.size(); i++)
-		allPoints[i].translate(xOffset, yOffset, zOffset);
-
 }
 
 
@@ -173,8 +171,7 @@ void Segment::rotate(double alpha, double beta, double gamma)
 	start.rotate(alpha, beta, gamma);
 	end.rotate(alpha, beta, gamma);
 
-	for (int i = 0; i < allPoints.size(); i++)
-		allPoints[i].rotate(alpha, beta, gamma);
+	calculateAllPoints();
 }
 
 void Segment::xRotation(double angle)
@@ -207,6 +204,8 @@ void Segment::displayOn(Ppm& image)
 		image.line(start.getXaxis(), start.getYaxis(),
 				end.getXaxis(), end.getYaxis(), 
 				color);
+
+	cout << "-Segment displayed" << endl;
 }
 
 ostream& operator<<(ostream& stream, Segment& segment)
