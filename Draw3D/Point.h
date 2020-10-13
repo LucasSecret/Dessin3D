@@ -58,6 +58,7 @@ public:
 
 
 	Point& operator+(Point& point);
+	Point& operator=(const Point& point);
 	bool operator==(const Point& point) const;
 
 	void displayOn(Ppm& image);

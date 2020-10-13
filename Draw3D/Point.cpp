@@ -192,6 +192,15 @@ Point& Point::operator+(Point& point)
 	return p;
 }
 
+Point& Point::operator=(const Point& point)
+{
+	xAxis = point.xAxis;
+	yAxis = point.yAxis;
+	zAxis = point.zAxis;
+	color = point.color;
+	return *this;
+}
+
 bool Point::operator==(const Point& point) const
 {
 	if (xAxis == point.xAxis

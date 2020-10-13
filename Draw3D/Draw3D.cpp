@@ -64,7 +64,7 @@ void makeBeautifullSquaresOnCenterOf(Ppm& image, int centerSquareSize)
 void make3D(Ppm& image)
 {
 	int size = 20;
-	Point p1(35, 35, 0), p2(35, 35 + size, 0), p3(35, 35, 30), p4(35, 35 + size, 30);
+	Point p1(55, 55, 0), p2(55, 55, size), p3(55, 55 +size, size), p4(55, 55 + size, 0);
 	SquareFace face(p1, p2, p3, p4, BLUE);
 	face.displayEdgesOn(image);
 }

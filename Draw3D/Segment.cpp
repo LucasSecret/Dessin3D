@@ -1,5 +1,7 @@
 #include "Segment.h"
 
+#define RESIZE_FACTOR 1.5
+
 Segment::Segment()
 {
 	start = Point();
@@ -11,19 +13,26 @@ Segment::Segment()
 Segment::Segment(Point start, Point end)
 {
 	Point source, destination;
-	if (start.getZaxis() == 0 || end.getZaxis() == 0)
-	{
-		source = start;
-		destination = end;
-	}
+	if (start.getZaxis() == 0)
+		source = Point(start);
+	
+
 	else
 	{
-		Point source((int)(start.getXaxis() + start.getXaxis() / start.getZaxis()),
-			(int)(start.getYaxis() - start.getYaxis() / start.getZaxis()),
+		//start.getYaxis()* RESIZE_FACTOR /
+		source = Point((int)(start.getXaxis() + start.getZaxis()),
+			(int)(start.getYaxis() - start.getZaxis()),
 			start.getZaxis());
+	}
 
-		Point destination((int)(end.getXaxis() + end.getXaxis() / end.getZaxis()),
-			(int)(end.getYaxis() - end.getYaxis() / end.getZaxis()),
+	if (end.getZaxis() == 0)
+		destination = Point(end);
+
+	else
+	{
+		//end.getXaxis() * RESIZE_FACTOR / 
+		destination = Point((int)(end.getXaxis() + end.getZaxis()),
+			(int)(end.getYaxis() - end.getZaxis()),
 			end.getZaxis());
 	}
 
@@ -38,18 +47,23 @@ Segment::Segment(Point start, Point end)
 Segment::Segment(Point start, Point end, int color)
 {
 	Point source, destination;
-	if (start.getZaxis() == 0 || end.getZaxis() == 0)
-	{
-		source = start;
-		destination = end;
-	}
+
+	if (start.getZaxis() == 0)
+		source = Point(start);
+
 	else
 	{
-		Point source((int)(start.getXaxis() + start.getXaxis() / start.getZaxis()),
+		source = Point((int)(start.getXaxis() + start.getXaxis() / start.getZaxis()),
 			(int)(start.getYaxis() - start.getYaxis() / start.getZaxis()),
 			start.getZaxis());
+	}
 
-		Point destination((int)(end.getXaxis() + end.getXaxis() / end.getZaxis()),
+	if (end.getZaxis() == 0)
+		destination = Point(end);
+
+	else
+	{
+		destination = Point((int)(end.getXaxis() + end.getXaxis() / end.getZaxis()),
 			(int)(end.getYaxis() - end.getYaxis() / end.getZaxis()),
 			end.getZaxis());
 	}
@@ -74,7 +88,7 @@ Segment::Segment(const Segment& copy)
 //Calculate all points that have been made for the segment between start and end
 void Segment::calculateAllPoints()
 {
-	cout << "---------------------------------------" << endl;
+	//cout << "---------------------------------------" << endl;
 
 	allPoints.clear();
 	Point currentPoint;
@@ -83,7 +97,8 @@ void Segment::calculateAllPoints()
 
 	//Chose the left point as start, the top point if x is equal for the two points 
 	if (start.getXaxis() < end.getXaxis()
-		|| (start.getXaxis() == end.getXaxis() && start.getYaxis() < end.getYaxis()))
+		|| (start.getXaxis() == end.getXaxis() && start.getYaxis() < end.getYaxis())
+		|| (start.getXaxis() == end.getXaxis() && start.getZaxis() < end.getZaxis()))
 	{
 		currentPoint = start;
 		destination = end;
@@ -109,7 +124,7 @@ void Segment::calculateAllPoints()
 	// a = yb - ya / xb - xa
 
 
-	//cout << "Ratio : " << end.getYaxis() << "-" << start.getYaxis() << "/" << end.getXaxis()<< "-" << start.getXaxis() << "=" << ratio <<endl;
+	cout << "Ratio : " << end.getYaxis() << "-" << start.getYaxis() << "/" << end.getXaxis()<< "-" << start.getXaxis() << "=" << ratio <<endl;
 
 	//The 'b' in y=ax + b
 	double b = currentPoint.getYaxis() - ratio * currentPoint.getXaxis();
@@ -245,10 +260,12 @@ void Segment::zRotation(double angle)
 
 void Segment::displayOn(Ppm& image)
 {
-	if(!(start.isOutOfBounds(image) || end.isOutOfBounds(image)))
+	if (!(start.isOutOfBounds(image) || end.isOutOfBounds(image)))
 		image.line(start.getXaxis(), start.getYaxis(),
-				end.getXaxis(), end.getYaxis(), 
-				color);
+			end.getXaxis(), end.getYaxis(),
+			color);
+	else
+		cout << "!!! Warning : segment out of edges" << endl;
 
 	cout << "-Segment displayed" << endl;
 }
