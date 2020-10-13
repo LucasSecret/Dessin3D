@@ -114,6 +114,17 @@ SquareFace::SquareFace(Point point, int width, int color)
 	calculateCenter();
 }
 
+SquareFace::SquareFace(SquareFace& copy)
+{
+	this->color = copy.color;
+
+	segments = new Segment[numberOfSegment];
+	for (int i = 0; i < numberOfSegment; i++)
+		segments[i] = copy.segments[i];
+	
+	center = copy.center;
+}
+
 
 int SquareFace::getWidth()
 {
@@ -124,12 +135,13 @@ int SquareFace::getWidth()
 	{
 		minX = segments[i].getStartPoint().getXaxis();
 		maxX = segments[i].getEndPoint().getXaxis();
+		i++;
 	}
 
 	return abs(maxX - minX);
 }
 
-//UNUSED -> Delete it
+//TODO -> Delete it, unsued method
 Point SquareFace::getLeftCorner()
 {
 	int minX = segments[0].getStartPoint().getXaxis();
@@ -150,17 +162,17 @@ Point SquareFace::getLeftCorner()
 
 void SquareFace::calculateCenter()
 {
-	int xAverage = 0, yAverage = 0;
+	int xAverage = 0, yAverage = 0, zAverage = 0;
 	//Sum all the middle of segments composing the square, and the average point will be the center point 
 	for (int i = 0; i < numberOfSegment; i++)
 	{
 		Point segmentMiddle = segments[i].getMiddle();
 		xAverage += segmentMiddle.getXaxis();
 		yAverage += segmentMiddle.getYaxis();
-		//segmentMiddle.displayOn(image);
+		zAverage += segmentMiddle.getZaxis();
 	}
 
-	center = Point(xAverage / numberOfSegment, yAverage / numberOfSegment);
+	center = Point(xAverage / numberOfSegment, yAverage / numberOfSegment, zAverage/ numberOfSegment);
 }
 
 Point SquareFace::getCenter()
@@ -194,7 +206,6 @@ void SquareFace::displayEdgesOn(Ppm& image)
 		segments[i].displayOn(image);
 	
 	cout << "-Edge Square displayed" << endl;
-
 }
 
 bool pointIsAlreadyDisplayed(vector<Point> displayedPoint, Point currentPoint)

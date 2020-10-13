@@ -10,8 +10,25 @@ Segment::Segment()
 
 Segment::Segment(Point start, Point end)
 {
-	this->start = start;
-	this->end = end;
+	Point source, destination;
+	if (start.getZaxis() == 0 || end.getZaxis() == 0)
+	{
+		source = start;
+		destination = end;
+	}
+	else
+	{
+		Point source((int)(start.getXaxis() + start.getXaxis() / start.getZaxis()),
+			(int)(start.getYaxis() - start.getYaxis() / start.getZaxis()),
+			start.getZaxis());
+
+		Point destination((int)(end.getXaxis() + end.getXaxis() / end.getZaxis()),
+			(int)(end.getYaxis() - end.getYaxis() / end.getZaxis()),
+			end.getZaxis());
+	}
+
+	this->start = source;
+	this->end = destination;
 	color = BLUE;
 	start.setColor(color);
 	end.setColor(color);
@@ -20,16 +37,45 @@ Segment::Segment(Point start, Point end)
 
 Segment::Segment(Point start, Point end, int color)
 {
-	this->start = start;
-	this->end = end;
+	Point source, destination;
+	if (start.getZaxis() == 0 || end.getZaxis() == 0)
+	{
+		source = start;
+		destination = end;
+	}
+	else
+	{
+		Point source((int)(start.getXaxis() + start.getXaxis() / start.getZaxis()),
+			(int)(start.getYaxis() - start.getYaxis() / start.getZaxis()),
+			start.getZaxis());
+
+		Point destination((int)(end.getXaxis() + end.getXaxis() / end.getZaxis()),
+			(int)(end.getYaxis() - end.getYaxis() / end.getZaxis()),
+			end.getZaxis());
+	}
+
+	this->start = source;
+	this->end = destination;
 	this->color = color;
 	start.setColor(color);
 	end.setColor(color);
 	calculateAllPoints();
 }
 
+Segment::Segment(const Segment& copy)
+{
+	start = copy.start;
+	end = copy.end;
+	color = copy.color;
+	allPoints = copy.allPoints;
+}
+
+
+//Calculate all points that have been made for the segment between start and end
 void Segment::calculateAllPoints()
 {
+	cout << "---------------------------------------" << endl;
+
 	allPoints.clear();
 	Point currentPoint;
 	Point destination;
@@ -102,18 +148,15 @@ void Segment::calculateAllPoints()
 		}
 
 		allPoints.push_back(currentPoint);
-		//cout << currentPoint << endl;
+		cout << currentPoint << endl;
 	}
 }
 
-vector<Point> Segment::getPoints()
-{
-	return allPoints;
-}
-
+vector<Point> Segment::getAllPoints() { return allPoints; }
 Point Segment::getStartPoint() { return start; }
 Point Segment::getEndPoint() { return end; }
 
+//True if the point is a part of this segment
 bool Segment::pointIsInSegment(Point p)
 {
 	for (int i = 0; i < allPoints.size(); i++)
@@ -127,8 +170,8 @@ bool Segment::pointIsInSegment(Point p)
 //If this segment crossing another, return true and the crossing point
 pair<bool, Point> Segment::isCrossing(Segment segment)
 {
-	vector<Point> segmentCrossedPoints = segment.getPoints();
-	vector<Point> thisPoints = getPoints();
+	vector<Point> segmentCrossedPoints = segment.getAllPoints();
+	vector<Point> thisPoints = getAllPoints();
 	for (int i = 0; i < segmentCrossedPoints.size(); i++)
 	{
 		for (int j = 0; j < thisPoints.size(); j++)
@@ -144,8 +187,12 @@ pair<bool, Point> Segment::isCrossing(Segment segment)
 Point Segment::getMiddle()
 {
 	int middleSize = allPoints.size()/2;
-
 	return allPoints[middleSize-1];
+}
+
+bool Segment::segmentIsOutOfBounds(Ppm& image)
+{
+	return 	(start.isOutOfBounds(image) || end.isOutOfBounds(image));
 }
 
 void Segment::setStartPoint(Point start) { this->start = start; }
@@ -156,6 +203,9 @@ void Segment::setColor(int color)
 	this->start.setColor(color);
 	this->end.setColor(color);
 }
+
+
+
 
 void Segment::translate(float xOffset, float yOffset, float zOffset)
 {
@@ -192,11 +242,6 @@ void Segment::zRotation(double angle)
 	end.Zrotation(angle);
 }
 
-bool Segment::segmentIsOutOfBounds(Ppm& image)
-{
-	return 	(start.isOutOfBounds(image) || end.isOutOfBounds(image));
-
-}
 
 void Segment::displayOn(Ppm& image)
 {

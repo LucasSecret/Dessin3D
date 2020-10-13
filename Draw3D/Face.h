@@ -27,6 +27,7 @@ public :
 	SquareFace(Point p1, Point p2, Point p3, Point p4);
 	SquareFace(Point p1, Point p2, Point p3, Point p4, int color);
 	SquareFace(Point point, int width, int color);
+	SquareFace(SquareFace& copy);
 
 	int getWidth();
 	Point getLeftCorner();

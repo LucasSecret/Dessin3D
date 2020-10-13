@@ -19,8 +19,9 @@ public:
 	Segment();
 	Segment(Point start, Point end);
 	Segment(Point start, Point end, int color);
+	Segment(const Segment& copy);
 
-	vector<Point> getPoints();
+	vector<Point> getAllPoints();
 	Point getStartPoint();
 	Point getEndPoint();
 

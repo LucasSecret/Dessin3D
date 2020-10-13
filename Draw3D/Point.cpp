@@ -30,16 +30,6 @@ Point::Point(SHORT x, SHORT y, SHORT z, int color)
 	this->isDisplayed = false;
 }
 
-Point::Point(SHORT x, SHORT y, int color)
-{
-	this->xAxis = x;
-	this->yAxis = y;
-	this->zAxis = 0;
-	this->color = color;	
-	this->isDisplayed = false;
-
-}
-
 Point::Point(SHORT x, SHORT y)
 {
 	xAxis = x;
@@ -96,7 +86,6 @@ double** Point::getXRotationMatrix(double angle)
 	matrix[2][0] = 0; matrix[2][1] = sin(angle); matrix[2][2] = cos(angle);
 
 	return matrix;
-	
 }
 
 double** Point::getYRotationMatrix(double angle)
@@ -195,7 +184,6 @@ Point Point::getWestNeighbor()
 }
 
 
-
 Point& Point::operator+(Point& point)
 {
 	Point p(xAxis + point.xAxis,
@@ -215,11 +203,21 @@ bool Point::operator==(const Point& point) const
 
 void Point::displayOn(Ppm& image)
 {
-	if (!isOutOfBounds(image))
+	int z;
+	
+	if (zAxis != 0)
 	{
-		image.setpixel(xAxis, yAxis, color);
-		isDisplayed = true;
+		Point pointToDisplay((int)(xAxis + xAxis / zAxis), 
+							 (int)(yAxis - yAxis / zAxis), 
+							 zAxis);
 	}
+	else
+		Point pointToDisplay(xAxis, yAxis, zAxis);
+
+	
+	if (!isOutOfBounds(image))
+		image.setpixel(xAxis, yAxis, color);
+
 }
 
 ostream& operator<<(ostream& stream, Point& point)

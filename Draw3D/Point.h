@@ -19,14 +19,13 @@ protected:
 	int yAxis;
 	int zAxis;
 	int color;
-	bool isDisplayed;
+	bool isDisplayed; //TODO : DELETE IT, unused variable
 
 
 public:
 	Point();
 	Point(SHORT x, SHORT y, SHORT z);
 	Point(SHORT x, SHORT y, SHORT z, int color);
-	Point(SHORT x, SHORT y, int color);
 	Point(SHORT x, SHORT y);
 	Point(const Point& copy);
 
