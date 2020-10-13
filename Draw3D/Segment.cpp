@@ -12,33 +12,9 @@ Segment::Segment()
 
 Segment::Segment(Point start, Point end)
 {
-	Point source, destination;
-	if (start.getZaxis() == 0)
-		source = Point(start);
-	
-
-	else
-	{
-		//start.getYaxis()* RESIZE_FACTOR /
-		source = Point((int)(start.getXaxis() + start.getZaxis()),
-			(int)(start.getYaxis() - start.getZaxis()),
-			start.getZaxis());
-	}
-
-	if (end.getZaxis() == 0)
-		destination = Point(end);
-
-	else
-	{
-		//end.getXaxis() * RESIZE_FACTOR / 
-		destination = Point((int)(end.getXaxis() + end.getZaxis()),
-			(int)(end.getYaxis() - end.getZaxis()),
-			end.getZaxis());
-	}
-
-	this->start = source;
-	this->end = destination;
-	color = BLUE;
+	this->start = start;
+	this->end = end;
+	this->color = color;
 	start.setColor(color);
 	end.setColor(color);
 	calculateAllPoints();
@@ -46,30 +22,8 @@ Segment::Segment(Point start, Point end)
 
 Segment::Segment(Point start, Point end, int color)
 {
-	Point source, destination;
-
-	if (start.getZaxis() == 0)
-		source = Point(start);
-
-	else
-	{
-		source = Point((int)(start.getXaxis() + start.getXaxis() / start.getZaxis()),
-			(int)(start.getYaxis() - start.getYaxis() / start.getZaxis()),
-			start.getZaxis());
-	}
-
-	if (end.getZaxis() == 0)
-		destination = Point(end);
-
-	else
-	{
-		destination = Point((int)(end.getXaxis() + end.getXaxis() / end.getZaxis()),
-			(int)(end.getYaxis() - end.getYaxis() / end.getZaxis()),
-			end.getZaxis());
-	}
-
-	this->start = source;
-	this->end = destination;
+	this->start = start;
+	this->end = end;
 	this->color = color;
 	start.setColor(color);
 	end.setColor(color);
@@ -88,7 +42,6 @@ Segment::Segment(const Segment& copy)
 //Calculate all points that have been made for the segment between start and end
 void Segment::calculateAllPoints()
 {
-	//cout << "---------------------------------------" << endl;
 
 	allPoints.clear();
 	Point currentPoint;
@@ -163,7 +116,7 @@ void Segment::calculateAllPoints()
 		}
 
 		allPoints.push_back(currentPoint);
-		cout << currentPoint << endl;
+		//cout << currentPoint << endl;
 	}
 }
 

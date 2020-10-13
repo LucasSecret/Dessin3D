@@ -161,25 +161,25 @@ void Point::translate(float xOffset, float yOffset, float zOffset)
 
 Point Point::getNorthNeighbor()
 {
-	Point p(xAxis, yAxis - 1, color);
+	Point p(xAxis, yAxis - 1, zAxis, color);
 	return p;
 }
 
 Point Point::getEastNeighbor()
 {
-	Point p(xAxis+1, yAxis, color);
+	Point p(xAxis+1, yAxis, zAxis, color);
 	return p;
 }
 
 Point Point::getSouthNeighbor()
 {
-	Point p(xAxis, yAxis + 1, color);
+	Point p(xAxis, yAxis + 1, zAxis, color);
 	return p;
 }
 
 Point Point::getWestNeighbor()
 {
-	Point p(xAxis - 1, yAxis, color);
+	Point p(xAxis - 1, yAxis, zAxis, color);
 	return p;
 }
 

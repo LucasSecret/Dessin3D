@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Draw3D.cpp" />
     <ClCompile Include="Face.cpp" />
     <ClCompile Include="Point.cpp" />
@@ -149,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="Circle.h" />
     <ClInclude Include="ColorDefinition.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="Face.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="ppm.h" />

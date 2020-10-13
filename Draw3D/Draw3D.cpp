@@ -3,6 +3,7 @@
 #include "Circle.h"
 #include "Segment.h"
 #include "Face.h"
+#include "Cube.h"
 
 
 void addPointToImage(Point point, Ppm& image)
@@ -61,13 +62,37 @@ void makeBeautifullSquaresOnCenterOf(Ppm& image, int centerSquareSize)
 	faceFull3.displayFullFaceOn(image);
 }
 
-void make3D(Ppm& image)
+void make3DCube(Ppm& image)
 {
 	int size = 20;
-	Point p1(55, 55, 0), p2(55, 55, size), p3(55, 55 +size, size), p4(55, 55 + size, 0);
-	SquareFace face(p1, p2, p3, p4, BLUE);
-	face.displayEdgesOn(image);
+	
+	Point pt1(55, 55, 0), pt2(55 + size, 55, 0),  pt3(55 + size, 55 + size, 0), pt4(55, 55 + size, 0);
+	Point pt5(55, 55, size), pt6(55+size, 55, size), pt7(55+size, 55 + size, size), pt8(55, 55 + size, size);
+
+	SquareFace frontFace(pt1, pt2, pt3, pt4, BLUE);
+	frontFace.displayFullFaceOn(image);
+	
+	SquareFace topFace(pt1, pt5, pt6, pt2, RED);
+	topFace.displayEdgesOn(image);
+
+	SquareFace rightFace(pt2, pt6, pt7, pt3, GREEN);
+	rightFace.displayEdgesOn(image);
+
+	SquareFace leftFace(pt1, pt5, pt8, pt4, YELLOW);
+	leftFace.displayEdgesOn(image);
+
+	SquareFace downFace(pt4, pt8, pt7, pt3, CYAN);
+	downFace.displayEdgesOn(image);
+
+	SquareFace backFace(pt5, pt6, pt7, pt8, PINK);
+	backFace.displayEdgesOn(image);
+
+	/*Cube cube(frontFace, topFace, rightFace, leftFace, downFace, backFace);
+	cube.displayFullOn(image);*/
+	
 }
+
+
 
 int main()
 {
@@ -120,7 +145,7 @@ int main()
 	circle.displayOn(image);
 
 	//makeBeautifullSquaresOnCenterOf(image, 30);
-	make3D(image);
+	make3DCube(image);
 	createImage(image);
 
 	return 0;

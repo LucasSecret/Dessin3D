@@ -259,7 +259,7 @@ void SquareFace::displayFullFaceOn(Ppm& image)
 {
 	vector<Point> displayedPoints;
 	Point currentPoint = center;
-
+	cout << "Centre : " << endl << currentPoint;
 	displayFaceRecursively(displayedPoints, currentPoint, image);
 	cout << "--Full Square displayed" << endl;
 
