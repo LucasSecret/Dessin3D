@@ -84,10 +84,10 @@ SquareFace::SquareFace(Point p1, Point p2, Point p3, Point p4)
 {
 	color = GREEN;
 	segments = new Segment[numberOfSegment];
-	segments[0] = Segment(p1,p2);
-	segments[1] = Segment(p2, p3);
-	segments[2] = Segment(p3, p4);
-	segments[3] = Segment(p4, p1);
+	segments[0] = Segment(p1,p2, color);
+	segments[1] = Segment(p2, p3, color);
+	segments[2] = Segment(p3, p4, color);
+	segments[3] = Segment(p4, p1, color);
 	calculateCenter();
 }
 
@@ -95,10 +95,10 @@ SquareFace::SquareFace(Point p1, Point p2, Point p3, Point p4, int color)
 {
 	this->color = color;
 	segments = new Segment[numberOfSegment];
-	segments[0] = Segment(p1, p2);
-	segments[1] = Segment(p2, p3);
-	segments[2] = Segment(p3, p4);
-	segments[3] = Segment(p4, p1);
+	segments[0] = Segment(p1, p2, color);
+	segments[1] = Segment(p2, p3, color);
+	segments[2] = Segment(p3, p4, color);
+	segments[3] = Segment(p4, p1, color);
 	calculateCenter();
 }
 
@@ -262,7 +262,6 @@ void SquareFace::displayFullFaceOn(Ppm& image)
 	cout << "Centre : " << endl << currentPoint;
 	displayFaceRecursively(displayedPoints, currentPoint, image);
 	cout << "--Full Square displayed" << endl;
-
 }
 
 SquareFace::~SquareFace()

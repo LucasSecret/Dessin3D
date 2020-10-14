@@ -70,25 +70,38 @@ void make3DCube(Ppm& image)
 	Point pt5(55, 55, size), pt6(55+size, 55, size), pt7(55+size, 55 + size, size), pt8(55, 55 + size, size);
 
 	SquareFace frontFace(pt1, pt2, pt3, pt4, BLUE);
-	frontFace.displayFullFaceOn(image);
+	//frontFace.rotate(-15, -30, 0);
+	frontFace.displayEdgesOn(image);
 	
 	SquareFace topFace(pt1, pt5, pt6, pt2, RED);
+	//topFace.rotate(-15, -30, 0);
+
 	topFace.displayEdgesOn(image);
 
 	SquareFace rightFace(pt2, pt6, pt7, pt3, GREEN);
+	//rightFace.rotate(-15, -30, 0);
+
 	rightFace.displayEdgesOn(image);
 
 	SquareFace leftFace(pt1, pt5, pt8, pt4, YELLOW);
+	//leftFace.rotate(-15, 30, 0);
+
 	leftFace.displayEdgesOn(image);
 
 	SquareFace downFace(pt4, pt8, pt7, pt3, CYAN);
+	//downFace.rotate(-15, -30, 0);
+
 	downFace.displayEdgesOn(image);
 
 	SquareFace backFace(pt5, pt6, pt7, pt8, PINK);
+		//backFace.rotate(-15, -30, 0);
+
 	backFace.displayEdgesOn(image);
 
-	/*Cube cube(frontFace, topFace, rightFace, leftFace, downFace, backFace);
-	cube.displayFullOn(image);*/
+	
+//	Cube cube(frontFace, topFace, rightFace, leftFace, downFace, backFace);
+	//cube.rotate(10, -35, 0);
+	//cube.displayEdgesOn(image);
 	
 }
 

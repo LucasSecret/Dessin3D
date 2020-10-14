@@ -44,24 +44,37 @@ void Segment::calculateAllPoints()
 {
 
 	allPoints.clear();
-	Point currentPoint;
-	Point destination;
+	Point currentPoint = start;
+	Point destination = end;
+	bool segmentOnZ = false;
+
+	if (start.getXaxis() == end.getXaxis()
+		&& start.getYaxis() == end.getYaxis())
+	{
+		currentPoint.setXaxis(start.getZaxis());
+		currentPoint.setYaxis(start.getYaxis());
+		destination.setXaxis(end.getZaxis());
+		destination.setYaxis(end.getYaxis());
+
+		segmentOnZ = true;
+	}
 	//cout << "\n\n\n----------------------------------------------\n\n\n";
 
+
+
 	//Chose the left point as start, the top point if x is equal for the two points 
-	if (start.getXaxis() < end.getXaxis()
-		|| (start.getXaxis() == end.getXaxis() && start.getYaxis() < end.getYaxis())
-		|| (start.getXaxis() == end.getXaxis() && start.getZaxis() < end.getZaxis()))
+	if (currentPoint.getXaxis() < destination.getXaxis()
+		|| (currentPoint.getXaxis() == destination.getXaxis() && currentPoint.getYaxis() < destination.getYaxis()))
 	{
-		currentPoint = start;
-		destination = end;
 		//cout << "Start : " << currentPoint;
 		//cout << "Destination : " << end;
 	}
 	else
 	{
-		currentPoint = end;
-		destination = start;
+		Point temp = currentPoint;
+		currentPoint = destination;
+		destination = temp;
+
 		//cout << "Start : " << endl << currentPoint;
 		//cout << "Destination : " << endl << start;
 	}
@@ -73,7 +86,7 @@ void Segment::calculateAllPoints()
 	if (currentPoint.getXaxis() == destination.getXaxis())
 		ratio = 0;
 	else
-		ratio = (double)(((double)end.getYaxis() - (double)start.getYaxis()) / ((double)end.getXaxis() - (double)start.getXaxis()));
+		ratio = (double)(((double)destination.getYaxis() - (double)currentPoint.getYaxis()) / ((double)destination.getXaxis() - (double)currentPoint.getXaxis()));
 	// a = yb - ya / xb - xa
 
 
@@ -115,7 +128,14 @@ void Segment::calculateAllPoints()
 				currentPoint.setXaxis(currentPoint.getXaxis() + 1);
 		}
 
-		allPoints.push_back(currentPoint);
+		Point result;
+		if (segmentOnZ)
+			result = Point(currentPoint.getZaxis(), currentPoint.getYaxis(),
+				currentPoint.getXaxis());
+		else
+			result = currentPoint;
+
+		allPoints.push_back(result);
 		//cout << currentPoint << endl;
 	}
 }
