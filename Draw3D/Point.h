@@ -33,7 +33,7 @@ public:
 	int getXaxis();
 	int getYaxis();
 	int getZaxis();
-	int   getColor();
+	int getColor();
 	bool isAlreadyDisplayed();
 	void setXaxis(int x);
 	void setYaxis(int y);

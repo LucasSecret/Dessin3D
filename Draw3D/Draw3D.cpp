@@ -65,43 +65,41 @@ void makeBeautifullSquaresOnCenterOf(Ppm& image, int centerSquareSize)
 void make3DCube(Ppm& image)
 {
 	int size = 40;
-	int angleY = 10;
-	int angleX = 10;
+	int angleY = -30;
+	int angleX = 20;
 	Point pt1(55, 55, 0), pt2(55 + size, 55, 0),  pt3(55 + size, 55 + size, 0), pt4(55, 55 + size, 0);
 	Point pt5(55, 55, size), pt6(55+size, 55, size), pt7(55+size, 55 + size, size), pt8(55, 55 + size, size);
 
 	SquareFace backFace(pt5, pt6, pt7, pt8, PINK);
-	backFace.rotate(angleX, angleY, 0);
-	backFace.displayFullFaceOn(image);
+	//backFace.rotate(angleX, angleY, 0);
+	//backFace.displayFullFaceOn(image);
 
 
 	SquareFace downFace(pt4, pt8, pt7, pt3, CYAN);
-	downFace.rotate(angleX, angleY, 0);
-	downFace.displayFullFaceOn(image);
+	//downFace.rotate(angleX, angleY, 0);
+	//downFace.displayFullFaceOn(image);
 
 
 	SquareFace rightFace(pt2, pt6, pt7, pt3, GREEN);
-	rightFace.rotate(angleX, angleY, 0);
-	rightFace.displayFullFaceOn(image);
+	//rightFace.rotate(angleX, angleY, 0);
+	//rightFace.displayFullFaceOn(image);
 
 	SquareFace leftFace(pt1, pt5, pt8, pt4, YELLOW);
-	leftFace.rotate(angleX, angleY, 0);
-	leftFace.displayFullFaceOn(image);
-
-
+	//leftFace.rotate(angleX, angleY, 0);
+	//leftFace.displayFullFaceOn(image);
 
 	SquareFace topFace(pt1, pt2, pt6, pt5, RED);
-	topFace.rotate(angleX, angleY, 0);
-	topFace.displayFullFaceOn(image);
+	//topFace.rotate(angleX, angleY, 0);
+	//topFace.displayFullFaceOn(image);
 
 	SquareFace frontFace(pt1, pt2, pt3, pt4, BLUE);
-	frontFace.rotate(angleX, angleY, 0);
-	frontFace.displayFullFaceOn(image);
-
+	//frontFace.rotate(angleX, angleY, 0);
+	//frontFace.displayFullFaceOn(image);
 	
-//	Cube cube(frontFace, topFace, rightFace, leftFace, downFace, backFace);
-	//cube.rotate(10, -35, 0);
-	//cube.displayEdgesOn(image);
+	Cube cube(backFace, downFace, leftFace, rightFace, topFace, frontFace );
+	cube.rotate(angleX, angleY, 0);
+	cube.displayEdgesOn(image);
+	cube.displayFullOn(image);
 }
 
 

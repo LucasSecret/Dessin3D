@@ -27,7 +27,7 @@ Cube::Cube(SquareFace* squareFace)
 {
 	this->faces = new SquareFace[numberOfFace];
 	for (int i = 0; i < numberOfFace; i++)
-		this->faces[i] = faces[i];
+		this->faces[i] = squareFace[i];
 }
 
 SquareFace* Cube::getFaces() { return faces; }
@@ -51,7 +51,6 @@ void Cube::displayEdgesOn(Ppm& image)
 		faces[i].displayEdgesOn(image);
 
 	cout << "---Cube edges displayed" << endl;
-
 }
 
 void Cube::displayFullOn(Ppm& image)

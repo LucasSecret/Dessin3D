@@ -88,9 +88,6 @@ void Segment::calculateAllPoints()
 		ratio = (double)(((double)destination.getYaxis() - (double)currentPoint.getYaxis()) / ((double)destination.getXaxis() - (double)currentPoint.getXaxis()));
 	// a = yb - ya / xb - xa
 
-
-	cout << "Ratio : " << end.getYaxis() << "-" << start.getYaxis() << "/" << end.getXaxis()<< "-" << start.getXaxis() << "=" << ratio <<endl;
-
 	//The 'b' in y=ax + b
 	double b = currentPoint.getYaxis() - ratio * currentPoint.getXaxis();
 
@@ -236,6 +233,18 @@ void Segment::displayOn(Ppm& image)
 		cout << "!!! Warning : segment out of edges" << endl;
 
 	cout << "-Segment displayed" << endl;
+}
+
+Segment& Segment::operator=(const Segment& copy) 
+{
+	start = copy.start;
+	end = copy.end;
+	color = copy.color;
+	allPoints.clear();
+	for (int i = 0; i < copy.allPoints.size(); i++)
+		allPoints.push_back(copy.allPoints[i]);
+
+	return *this;
 }
 
 ostream& operator<<(ostream& stream, Segment& segment)

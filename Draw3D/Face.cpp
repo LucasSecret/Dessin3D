@@ -4,8 +4,7 @@ SquareFace::SquareFace()
 {
 	segments = new Segment[numberOfSegment];
 	color = GREEN;
-
-	calculateCenter();
+	center = Point();
 }
 
 SquareFace::SquareFace(Segment* segments)
@@ -235,20 +234,23 @@ bool SquareFace::pointIsOnEdge(Point point)
 
 int SquareFace::displayFaceRecursively(vector<Point>& displayedPoint, Point currentPoint, Ppm& image)
 {
+
 	if (pointIsAlreadyDisplayed(displayedPoint, currentPoint))
 		return 0;
 
-	if (pointIsOnEdge(currentPoint))
-		return 0;
 	
-	//cout << "x : " << currentPoint.getXaxis() << "   y : " << currentPoint.getYaxis() << endl;
+
 	if (!currentPoint.isOutOfBounds(image))
 	{
 		image.setpixel(currentPoint.getXaxis(), currentPoint.getYaxis(), color);
 		displayedPoint.push_back(currentPoint);
 	}
-	else return 0; 
+	else return 0;
 
+	if (pointIsOnEdge(currentPoint))
+		return 0;
+	//cout << "x : " << currentPoint.getXaxis() << "   y : " << currentPoint.getYaxis() << endl;
+	
 	displayFaceRecursively(displayedPoint, currentPoint.getNorthNeighbor(), image);
 	displayFaceRecursively(displayedPoint, currentPoint.getEastNeighbor(), image);
 	displayFaceRecursively(displayedPoint, currentPoint.getSouthNeighbor(), image);
@@ -264,6 +266,16 @@ void SquareFace::displayFullFaceOn(Ppm& image)
 	cout << "Centre : " << endl << currentPoint;
 	displayFaceRecursively(displayedPoints, currentPoint, image);
 	cout << "--Full Square displayed" << endl;
+}
+
+SquareFace& SquareFace::operator=(const SquareFace& copy)
+{
+	color = copy.color;
+	center = copy.center;
+	for (int i = 0; i < numberOfSegment; i++)
+		segments[i] = copy.segments[i];
+
+	return *this;
 }
 
 SquareFace::~SquareFace()

@@ -40,6 +40,7 @@ public :
 
 	void displayFullFaceOn(Ppm& image);
 
+	SquareFace& operator=(const SquareFace& copy);
 	~SquareFace();
 };
 

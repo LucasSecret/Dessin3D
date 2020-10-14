@@ -42,6 +42,7 @@ public:
 
 	void displayOn(Ppm& image);
 
+	Segment& operator=(const Segment& copy);
 	friend ostream& operator<<(ostream& stream, Segment& segment);
 };
 
