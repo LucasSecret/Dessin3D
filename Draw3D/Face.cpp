@@ -234,12 +234,7 @@ bool SquareFace::pointIsOnEdge(Point point)
 
 int SquareFace::displayFaceRecursively(vector<Point>& displayedPoint, Point currentPoint, Ppm& image)
 {
-
-	if (pointIsAlreadyDisplayed(displayedPoint, currentPoint))
-		return 0;
-
-	
-
+	//avoid program exit
 	if (!currentPoint.isOutOfBounds(image))
 	{
 		image.setpixel(currentPoint.getXaxis(), currentPoint.getYaxis(), color);
@@ -247,15 +242,25 @@ int SquareFace::displayFaceRecursively(vector<Point>& displayedPoint, Point curr
 	}
 	else return 0;
 
+	//Check if the point is on the border 
 	if (pointIsOnEdge(currentPoint))
 		return 0;
-	//cout << "x : " << currentPoint.getXaxis() << "   y : " << currentPoint.getYaxis() << endl;
-	
-	displayFaceRecursively(displayedPoint, currentPoint.getNorthNeighbor(), image);
-	displayFaceRecursively(displayedPoint, currentPoint.getEastNeighbor(), image);
-	displayFaceRecursively(displayedPoint, currentPoint.getSouthNeighbor(), image);
-	displayFaceRecursively(displayedPoint, currentPoint.getWestNeighbor(), image);
 
+	//Check if neighbors are already displayed before to call or not the method
+	if (!pointIsAlreadyDisplayed(displayedPoint, currentPoint.getNorthNeighbor()))
+		displayFaceRecursively(displayedPoint, currentPoint.getNorthNeighbor(), image);
+
+	if(!pointIsAlreadyDisplayed(displayedPoint, currentPoint.getEastNeighbor()))
+		displayFaceRecursively(displayedPoint, currentPoint.getEastNeighbor(), image);
+
+	if (!pointIsAlreadyDisplayed(displayedPoint, currentPoint.getSouthNeighbor()))
+		displayFaceRecursively(displayedPoint, currentPoint.getSouthNeighbor(), image);
+
+	if (!pointIsAlreadyDisplayed(displayedPoint, currentPoint.getWestNeighbor()))
+		displayFaceRecursively(displayedPoint, currentPoint.getWestNeighbor(), image);
+
+
+	//cout << "x : " << currentPoint.getXaxis() << "   y : " << currentPoint.getYaxis() << endl;
 	return 0;
 }
 

@@ -79,14 +79,16 @@ void Segment::calculateAllPoints()
 	}
 
 	currentPoint.setColor(color);
+
 	//The 'a' in the y=ax + b
 	double ratio;
 
+	//avoid division by zero
 	if (currentPoint.getXaxis() == destination.getXaxis())
 		ratio = 0;
 	else
 		ratio = (double)(((double)destination.getYaxis() - (double)currentPoint.getYaxis()) / ((double)destination.getXaxis() - (double)currentPoint.getXaxis()));
-	// a = yb - ya / xb - xa
+	    // a = yb - ya / xb - xa
 
 	//The 'b' in y=ax + b
 	double b = currentPoint.getYaxis() - ratio * currentPoint.getXaxis();
@@ -114,7 +116,7 @@ void Segment::calculateAllPoints()
 				currentPoint.setXaxis(currentPoint.getXaxis() + 1);
 		}
 
-		//If ratio == 0, it means x or y are equals for the two points
+		//If ratio == 0, it means x or y are equals for the two points (for straight line)
 		else
 		{
 			if (currentPoint.getXaxis() == destination.getXaxis())
@@ -125,6 +127,8 @@ void Segment::calculateAllPoints()
 		}
 
 		Point result;
+
+		//re-exchange x and z 
 		if (segmentOnZ)
 			result = Point(currentPoint.getZaxis(), currentPoint.getYaxis(),
 				currentPoint.getXaxis());

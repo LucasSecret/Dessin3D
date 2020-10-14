@@ -66,7 +66,7 @@ void make3DCube(Ppm& image)
 {
 	int size = 40;
 	int angleY = -30;
-	int angleX = 20;
+	int angleX = 30;
 	Point pt1(55, 55, 0), pt2(55 + size, 55, 0),  pt3(55 + size, 55 + size, 0), pt4(55, 55 + size, 0);
 	Point pt5(55, 55, size), pt6(55+size, 55, size), pt7(55+size, 55 + size, size), pt8(55, 55 + size, size);
 
@@ -74,32 +74,43 @@ void make3DCube(Ppm& image)
 	//backFace.rotate(angleX, angleY, 0);
 	//backFace.displayFullFaceOn(image);
 
-
 	SquareFace downFace(pt4, pt8, pt7, pt3, CYAN);
 	//downFace.rotate(angleX, angleY, 0);
 	//downFace.displayFullFaceOn(image);
-
 
 	SquareFace rightFace(pt2, pt6, pt7, pt3, GREEN);
 	//rightFace.rotate(angleX, angleY, 0);
 	//rightFace.displayFullFaceOn(image);
 
-	SquareFace leftFace(pt1, pt5, pt8, pt4, YELLOW);
+	SquareFace leftFace(pt1, pt5, pt8, pt4, BLUE);
 	//leftFace.rotate(angleX, angleY, 0);
 	//leftFace.displayFullFaceOn(image);
 
-	SquareFace topFace(pt1, pt2, pt6, pt5, RED);
+	SquareFace topFace(pt1, pt2, pt6, pt5, GREEN);
 	//topFace.rotate(angleX, angleY, 0);
 	//topFace.displayFullFaceOn(image);
 
-	SquareFace frontFace(pt1, pt2, pt3, pt4, BLUE);
+	SquareFace frontFace(pt1, pt2, pt3, pt4, YELLOW);
 	//frontFace.rotate(angleX, angleY, 0);
 	//frontFace.displayFullFaceOn(image);
 	
 	Cube cube(backFace, downFace, leftFace, rightFace, topFace, frontFace );
 	cube.rotate(angleX, angleY, 0);
+	cube.translate(100, 100, 0);
 	cube.displayEdgesOn(image);
 	cube.displayFullOn(image);
+
+	Point p1(55, 55, 0, RED), p2(55 + size, 55, 0, RED), p3(55 + size, 55 + size, 0, RED), p4(55, 55 + size, 0, RED);
+	Point p5(55, 55, size, RED), p6(55 + size, 55, size, RED), p7(55 + size, 55 + size, size, RED), p8(55, 55 + size, size, RED);
+	vector<Point> points;
+	points.push_back(p1);points.push_back(p2);points.push_back(p3);points.push_back(p4);
+	points.push_back(p5); points.push_back(p6); points.push_back(p7); points.push_back(p8);
+	for (int i = 0; i < points.size(); i++)
+	{
+		points[i].rotate(angleX, angleY, 0);
+		points[i].translate(100,100,0);
+		points[i].displayOn(image);
+	}
 }
 
 
