@@ -191,11 +191,14 @@ void SquareFace::translate(float xOffset, float yOffset, float zOffset)
 
 void SquareFace::rotate(double alpha, double beta, double gamma)
 {
+	int xOffset = center.getXaxis();
+	int yOffset = center.getYaxis();
+
 	for (int i = 0; i < numberOfSegment; i++)
 	{
-		segments[i].translate(-center.getXaxis(), -center.getYaxis(), 0);
+		//segments[i].translate(-xOffset, -yOffset, 0);
 		segments[i].rotate(alpha, beta, gamma);
-		segments[i].translate(center.getXaxis(), center.getYaxis(), 0);
+		//segments[i].translate(xOffset, yOffset,0);
 	}
 	calculateCenter();
 }
@@ -238,7 +241,6 @@ int SquareFace::displayFaceRecursively(vector<Point>& displayedPoint, Point curr
 	if (pointIsOnEdge(currentPoint))
 		return 0;
 	
-
 	//cout << "x : " << currentPoint.getXaxis() << "   y : " << currentPoint.getYaxis() << endl;
 	if (!currentPoint.isOutOfBounds(image))
 	{

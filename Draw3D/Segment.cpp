@@ -42,12 +42,12 @@ Segment::Segment(const Segment& copy)
 //Calculate all points that have been made for the segment between start and end
 void Segment::calculateAllPoints()
 {
-
 	allPoints.clear();
 	Point currentPoint = start;
 	Point destination = end;
 	bool segmentOnZ = false;
 
+	//Change x for z if x and y are equals
 	if (start.getXaxis() == end.getXaxis()
 		&& start.getYaxis() == end.getYaxis())
 	{
@@ -59,7 +59,6 @@ void Segment::calculateAllPoints()
 		segmentOnZ = true;
 	}
 	//cout << "\n\n\n----------------------------------------------\n\n\n";
-
 
 
 	//Chose the left point as start, the top point if x is equal for the two points 
@@ -149,7 +148,7 @@ bool Segment::pointIsInSegment(Point p)
 {
 	for (int i = 0; i < allPoints.size(); i++)
 	{
-		if (p == allPoints[i])
+		if (p.getXaxis() == allPoints[i].getXaxis() && p.getYaxis() == allPoints[i].getYaxis())
 			return true;
 	}
 	return false;
@@ -192,9 +191,6 @@ void Segment::setColor(int color)
 	this->end.setColor(color);
 }
 
-
-
-
 void Segment::translate(float xOffset, float yOffset, float zOffset)
 {
 	start.translate(xOffset, yOffset, zOffset);
@@ -202,7 +198,6 @@ void Segment::translate(float xOffset, float yOffset, float zOffset)
 	calculateAllPoints();
 
 }
-
 
 void Segment::rotate(double alpha, double beta, double gamma)
 {
