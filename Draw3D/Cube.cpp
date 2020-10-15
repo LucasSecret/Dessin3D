@@ -55,15 +55,31 @@ void Cube::rotate(int alpha, int beta, int gamma)
 
 void Cube::sortFaces()
 {
-	int minZcenter = faces[0].getCenter().getZaxis();
+	for (int i = 0; i < numberOfFace; i++)
+		cout << faces[i].getDepthAverage() << " ";
+
 	for (int i = 0; i < numberOfFace; i++)
 	{
+		int minZcenter = faces[0].getDepthAverage();
+		int position = 0;
 		for (int j = 0; j < numberOfFace - i; j++)
 		{
-			if(faces)
+			if (faces[j].getDepthAverage() <= minZcenter)
+			{
+				//Find minimum depth
+				minZcenter = faces[j].getDepthAverage();
+				position = j;
+			}
 		}
+		//And put it in the end of the tab
+		SquareFace tempFace(faces[numberOfFace - i - 1]);
+		faces[numberOfFace - i - 1] = faces[position];
+		faces[position] = tempFace;
 	}
-
+	cout << endl;
+	for (int i = 0; i < numberOfFace; i++)
+		cout << faces[i].getDepthAverage() << " ";
+	cout << endl;
 }
 
 void Cube::displayEdgesOn(Ppm& image)
@@ -76,6 +92,7 @@ void Cube::displayEdgesOn(Ppm& image)
 
 void Cube::displayFullOn(Ppm& image)
 {
+	sortFaces();
 	for (int i = 0; i < numberOfFace; i++)
 	{
 		faces[i].displayFullFaceOn(image);

@@ -140,6 +140,15 @@ int SquareFace::getWidth()
 	return abs(maxX - minX);
 }
 
+int SquareFace::getDepthAverage()
+{
+	int zAverage=0;
+	for (int i = 0; i < numberOfSegment; i++)
+		zAverage += segments[i].getStartPoint().getZaxis();
+	
+	return zAverage / numberOfSegment;
+}
+
 //TODO -> Delete it, unsued method
 Point SquareFace::getLeftCorner()
 {
@@ -194,11 +203,8 @@ void SquareFace::rotate(double alpha, double beta, double gamma)
 	int yOffset = center.getYaxis();
 
 	for (int i = 0; i < numberOfSegment; i++)
-	{
-		//segments[i].translate(-xOffset, -yOffset, 0);
 		segments[i].rotate(alpha, beta, gamma);
-		//segments[i].translate(xOffset, yOffset,0);
-	}
+
 	calculateCenter();
 }
 
@@ -259,7 +265,6 @@ int SquareFace::displayFaceRecursively(vector<Point>& displayedPoint, Point curr
 	if (!pointIsAlreadyDisplayed(displayedPoint, currentPoint.getWestNeighbor()))
 		displayFaceRecursively(displayedPoint, currentPoint.getWestNeighbor(), image);
 
-	//cout << "x : " << currentPoint.getXaxis() << "   y : " << currentPoint.getYaxis() << endl;
 	return 0;
 }
 
@@ -268,9 +273,7 @@ void SquareFace::displayFullFaceOn(Ppm& image)
 {
 	vector<Point> displayedPoints;
 	Point currentPoint = center;
-	cout << "Centre : " << endl << currentPoint;
 	displayFaceRecursively(displayedPoints, currentPoint, image);
-	cout << "Center : " << center;
 	cout << "--Full Square displayed" << endl;
 }
 

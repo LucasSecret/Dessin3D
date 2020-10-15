@@ -30,6 +30,7 @@ public :
 	SquareFace(SquareFace& copy);
 
 	int getWidth();
+	int getDepthAverage();
 	Point getLeftCorner();
 	Point getCenter();
 
