@@ -37,8 +37,9 @@ public :
 	void translate(float xOffset, float yOffset, float zOffset);
 	void rotate(double alpha, double beta, double gamma);
 
-	void displayEdgesOn(Ppm& image);
+	bool faceIsVisible();
 
+	void displayEdgesOn(Ppm& image);
 	void displayFullFaceOn(Ppm& image);
 
 	SquareFace& operator=(const SquareFace& copy);

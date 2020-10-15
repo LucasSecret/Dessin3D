@@ -235,8 +235,6 @@ void Segment::displayOn(Ppm& image)
 			color);
 	else
 		cout << "!!! Warning : segment out of edges" << endl;
-
-	cout << "-Segment displayed" << endl;
 }
 
 Segment& Segment::operator=(const Segment& copy) 

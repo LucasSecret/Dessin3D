@@ -65,24 +65,30 @@ void makeBeautifullSquaresOnCenterOf(Ppm& image, int centerSquareSize)
 void make3DCubes(Ppm& image)
 {
 	int size = 30;
-	int angleY = -30;
-	int angleX = 20;
+	double angleY = -30.0;
+	double angleX = 20.0;
 	Point pt1(55, 55, 0), pt2(55 + size, 55, 0),  pt3(55 + size, 55 + size, 0), pt4(55, 55 + size, 0);
 	Point pt5(55, 55, size), pt6(55+size, 55, size), pt7(55+size, 55 + size, size), pt8(55, 55 + size, size);
 
 	SquareFace backFace(pt5, pt6, pt7, pt8, PINK);
 	SquareFace downFace(pt4, pt8, pt7, pt3, CYAN);
-	SquareFace rightFace(pt2, pt6, pt7, pt3, GREEN);
+	SquareFace rightFace(pt2, pt6, pt7, pt3, WHITE);
 	SquareFace leftFace(pt1, pt5, pt8, pt4, BLUE);
 	SquareFace topFace(pt1, pt2, pt6, pt5, GREEN);
 	SquareFace frontFace(pt1, pt2, pt3, pt4, YELLOW);
 
 	Cube cube(frontFace, downFace, backFace, leftFace, rightFace, topFace);
-	cube.rotate(angleX, angleY, 0);
-	cube.translate(0, 0, 0);
 	cube.displayFullOn(image);
+	//cube.rotate(angleX, angleY, 0);
+	//cube.translate(0, -30, 0);
+	//cube.displayFullOn(image);
 
-
+	
+	//cube.rotate(-angleX, -angleY, 0);
+	//cube.translate(0, 30, 0);
+	//cube.rotate(angleX, -angleY, 0);
+	//cube.translate(140, -40, 0);
+	//cube.displayFullOn(image);
 }
 
 

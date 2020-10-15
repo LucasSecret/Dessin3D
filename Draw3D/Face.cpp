@@ -238,8 +238,24 @@ bool SquareFace::pointIsOnEdge(Point point)
 	return false;
 }
 
+bool SquareFace::faceIsVisible()
+{
+	for (int i = 0; i < numberOfSegment; i++)
+	{
+		if (segments[i].getStartPoint().getXaxis() == segments[i].getEndPoint().getXaxis()
+			&& segments[i].getStartPoint().getYaxis() == segments[i].getEndPoint().getYaxis())
+			return false;
+	}
+
+	return true;
+}
+
 int SquareFace::displayFaceRecursively(vector<Point>& displayedPoint, Point currentPoint, Ppm& image)
 {
+	/*If face is only on zAxis, no try to display 
+	(if the cube has no rotation and the face is not the front one or the back one) */
+	if (!faceIsVisible())
+		return 0;
 	//avoid program exit
 	if (!currentPoint.isOutOfBounds(image))
 	{
