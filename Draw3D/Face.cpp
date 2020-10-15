@@ -259,7 +259,6 @@ int SquareFace::displayFaceRecursively(vector<Point>& displayedPoint, Point curr
 	if (!pointIsAlreadyDisplayed(displayedPoint, currentPoint.getWestNeighbor()))
 		displayFaceRecursively(displayedPoint, currentPoint.getWestNeighbor(), image);
 
-
 	//cout << "x : " << currentPoint.getXaxis() << "   y : " << currentPoint.getYaxis() << endl;
 	return 0;
 }
@@ -270,6 +269,7 @@ void SquareFace::displayFullFaceOn(Ppm& image)
 	Point currentPoint = center;
 	cout << "Centre : " << endl << currentPoint;
 	displayFaceRecursively(displayedPoints, currentPoint, image);
+	cout << "Center : " << center;
 	cout << "--Full Square displayed" << endl;
 }
 

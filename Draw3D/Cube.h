@@ -12,6 +12,7 @@ public :
 	Cube(vector<SquareFace> faces);
 	Cube(SquareFace face1, SquareFace face2, SquareFace face3, SquareFace face4, SquareFace face5, SquareFace face6);
 	Cube(SquareFace* squareFace);
+	Cube(Cube& copy);
 
 	SquareFace* getFaces();
 

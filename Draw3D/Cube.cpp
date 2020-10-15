@@ -30,6 +30,14 @@ Cube::Cube(SquareFace* squareFace)
 		this->faces[i] = squareFace[i];
 }
 
+Cube::Cube(Cube& copy)
+{
+	faces = new SquareFace[numberOfFace];
+	for (int i = 0; i < numberOfFace; i++)
+		faces[i] = copy.faces[i];
+}
+
+
 SquareFace* Cube::getFaces() { return faces; }
 
 void Cube::translate(int xOffset, int yOffset, int zOffset)
@@ -56,7 +64,10 @@ void Cube::displayEdgesOn(Ppm& image)
 void Cube::displayFullOn(Ppm& image)
 {
 	for (int i = 0; i < numberOfFace; i++)
+	{
 		faces[i].displayFullFaceOn(image);
+		faces[i].displayEdgesOn(image);
+	}
 	cout << "---Cube displayed" << endl;
 }
 
