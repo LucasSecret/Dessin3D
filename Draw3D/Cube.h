@@ -23,6 +23,7 @@ public :
 	void displayEdgesOn(Ppm& image);
 	void displayFullOn(Ppm& image);
 
+	~Cube();
 
 };
 

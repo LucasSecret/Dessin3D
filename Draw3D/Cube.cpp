@@ -101,3 +101,8 @@ void Cube::displayFullOn(Ppm& image)
 	cout << "---Cube displayed" << endl;
 }
 
+Cube::~Cube()
+{
+	delete[] faces;
+}
+

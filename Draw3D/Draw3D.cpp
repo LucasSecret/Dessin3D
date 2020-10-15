@@ -28,37 +28,48 @@ void createImage(Ppm& image)
 
 void makeBeautifullSquaresOnCenterOf(Ppm& image, int centerSquareSize)
 {
+	int centerX, centerY;
+
 	SquareFace faceFull(Point(128 - centerSquareSize / 2, 128 - centerSquareSize / 2, 0), centerSquareSize, RED); //Little Square 1
 	SquareFace edges(Point(128 - centerSquareSize / 2, 128 - centerSquareSize / 2, 0), centerSquareSize, WHITE);
+
+	centerX = faceFull.getCenter().getXaxis();
+	centerY = faceFull.getCenter().getYaxis();
+
+	faceFull.translate(-centerX, -centerY, 0); //Put it on the center to realize perfect rotation around Z axis
+	faceFull.rotate(0, 0, 22.5); //Rotate
+	faceFull.translate(centerX, centerY, 0); //Put it to its initial center
+
+	faceFull.displayFullFaceOn(image);
+
+
 	SquareFace faceFull_1(faceFull);
 	SquareFace edges_1(edges);
 
-	faceFull.rotate(0, 0, 22.5); //Rotate
-	edges.rotate(0, 0, 22.5);
+	faceFull_1.translate(-centerX, -centerY, 0);
 	faceFull_1.rotate(0, 0, -22.5);
-	edges_1.rotate(0, 0, -22.5);
-
-	edges.displayEdgesOn(image); //Display
-	faceFull.displayFullFaceOn(image);
-	edges_1.displayEdgesOn(image);
+	faceFull_1.translate(centerX, centerY, 0);
+	
 	faceFull_1.displayFullFaceOn(image);
+
 
 	SquareFace faceFull2(Point(128 - centerSquareSize / 2, 128 - centerSquareSize / 2, 0), centerSquareSize, YELLOW);//Little Square 2
 	SquareFace edges2(Point(128 - centerSquareSize / 2, 128 - centerSquareSize / 2, 0), centerSquareSize, WHITE);
-
+	
+	faceFull2.translate(-centerX, -centerY, 0);
 	faceFull2.rotate(0, 0, 45);
-	edges2.rotate(0, 0, 45);
+	faceFull2.translate(centerX, centerY, 0);
 
-	edges2.displayEdgesOn(image);
 	faceFull2.displayFullFaceOn(image);
+
 
 	SquareFace faceFull3(Point(128 - centerSquareSize / 2, 128 - centerSquareSize / 2, 0), centerSquareSize, GREEN);//Little Square 3
 	SquareFace edges3(Point(128 - centerSquareSize / 2, 128 - centerSquareSize / 2, 0), centerSquareSize, WHITE);
 
+	faceFull3.translate(-centerX, -centerY, 0);
 	faceFull3.rotate(0, 0, 90);
-	edges3.rotate(0, 0, 90);
+	faceFull3.translate(centerX, centerY, 0);
 
-	edges3.displayEdgesOn(image);
 	faceFull3.displayFullFaceOn(image);
 }
 
@@ -78,17 +89,25 @@ void make3DCubes(Ppm& image)
 	SquareFace frontFace(pt1, pt2, pt3, pt4, YELLOW);
 
 	Cube cube(frontFace, downFace, backFace, leftFace, rightFace, topFace);
-	cube.displayFullOn(image);
-	//cube.rotate(angleX, angleY, 0);
-	//cube.translate(0, -30, 0);
-	//cube.displayFullOn(image);
-
 	
-	//cube.rotate(-angleX, -angleY, 0);
-	//cube.translate(0, 30, 0);
-	//cube.rotate(angleX, -angleY, 0);
-	//cube.translate(140, -40, 0);
-	//cube.displayFullOn(image);
+	cube.rotate(angleX, angleY, 0);
+	cube.translate(0, -30, 0);
+	cube.displayFullOn(image);
+
+	Cube cube2(frontFace, downFace, backFace, leftFace, rightFace, topFace);
+	cube2.rotate(angleX, -angleY, 0);
+	cube2.translate(140, -30, 0);
+	cube2.displayFullOn(image);
+
+	Cube cube3(frontFace, downFace, backFace, leftFace, rightFace, topFace);
+	cube3.rotate(-angleX, angleY, 0);
+	cube3.translate(-27, 155, 0);
+	cube3.displayFullOn(image);
+
+	Cube cube4(frontFace, downFace, backFace, leftFace, rightFace, topFace);
+	cube4.rotate(-angleX, -angleY, 0);
+	cube4.translate(165, 155, 0);
+	cube4.displayFullOn(image);
 }
 
 
@@ -119,7 +138,7 @@ int main()
 	cer.afficher(im);
 */
 	//Cross
-	/*
+	
 	Segment segment(Point(128, 64), Point(128, 192), BLUE);
 	Segment segment2(Point(64, 128), Point(192, 128), BLUE);
 
@@ -137,11 +156,11 @@ int main()
 	SquareFace face(segments, YELLOW); //Big Edge Square 
 	face.displayEdgesOn(image);
 	segments.clear();
-	*/
+	
 	Circle circle(128, 128, 0, 64, GREEN); //Big Circle
 	circle.displayOn(image);
 
-	//makeBeautifullSquaresOnCenterOf(image, 30);
+	makeBeautifullSquaresOnCenterOf(image, 30);
 	make3DCubes(image);
 	createImage(image);
 
