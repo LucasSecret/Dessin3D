@@ -79,7 +79,7 @@ void make3DCube(Ppm& image)
 
 	Cube cube(backFace, downFace, leftFace, rightFace, topFace, frontFace );
 	cube.rotate(angleX, angleY, 0);
-	cube.translate(100, 100, 0);
+	cube.translate(90, 70, 0);
 	cube.displayFullOn(image);
 }
 

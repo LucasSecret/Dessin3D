@@ -19,6 +19,7 @@ public :
 	void translate(int xOffset, int yOffset, int zOffset);
 	void rotate(int alpha, int beta, int gamma);
 
+	void sortFaces();
 	void displayEdgesOn(Ppm& image);
 	void displayFullOn(Ppm& image);
 

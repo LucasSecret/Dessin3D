@@ -58,7 +58,6 @@ void Segment::calculateAllPoints()
 
 		segmentOnZ = true;
 	}
-	//cout << "\n\n\n----------------------------------------------\n\n\n";
 
 
 	//Chose the left point as start, the top point if x is equal for the two points 
@@ -97,8 +96,8 @@ void Segment::calculateAllPoints()
 	{
 		//ax + b - y = 0
 		double equation = ratio * currentPoint.getXaxis() + b - currentPoint.getYaxis();
-		//cout << ratio << "*" << currentPoint.getXaxis() << " + " << start.getYaxis() << " - " << currentPoint.getYaxis() << " = " << equation;
-		//cout << endl << equation << endl;
+		
+		//Descending line
 		if (ratio > 0)
 		{
 			if (equation > 0) //so we're under the line
@@ -108,6 +107,7 @@ void Segment::calculateAllPoints()
 				currentPoint.setXaxis(currentPoint.getXaxis() + 1);
 		}
 
+		//Rising line
 		else if (ratio < 0)
 		{
 			if (equation <= 0) //so we're under the line

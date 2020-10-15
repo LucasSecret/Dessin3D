@@ -53,6 +53,19 @@ void Cube::rotate(int alpha, int beta, int gamma)
 		faces[i].rotate(alpha, beta, gamma);
 }
 
+void Cube::sortFaces()
+{
+	int minZcenter = faces[0].getCenter().getZaxis();
+	for (int i = 0; i < numberOfFace; i++)
+	{
+		for (int j = 0; j < numberOfFace - i; j++)
+		{
+			if(faces)
+		}
+	}
+
+}
+
 void Cube::displayEdgesOn(Ppm& image)
 {
 	for (int i = 0; i < numberOfFace; i++)

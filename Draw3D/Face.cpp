@@ -263,6 +263,7 @@ int SquareFace::displayFaceRecursively(vector<Point>& displayedPoint, Point curr
 	return 0;
 }
 
+
 void SquareFace::displayFullFaceOn(Ppm& image)
 {
 	vector<Point> displayedPoints;
