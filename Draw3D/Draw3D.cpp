@@ -32,6 +32,8 @@ void makeBeautifullSquaresOnCenterOf(Ppm& image, int centerSquareSize)
 
 	SquareFace faceFull(Point(128 - centerSquareSize / 2, 128 - centerSquareSize / 2, 0), centerSquareSize, RED); //Little Square 1
 	SquareFace edges(Point(128 - centerSquareSize / 2, 128 - centerSquareSize / 2, 0), centerSquareSize, WHITE);
+	SquareFace faceFull_1(faceFull);
+	SquareFace edges_1(edges);
 
 	centerX = faceFull.getCenter().getXaxis();
 	centerY = faceFull.getCenter().getYaxis();
@@ -42,9 +44,6 @@ void makeBeautifullSquaresOnCenterOf(Ppm& image, int centerSquareSize)
 
 	faceFull.displayFullFaceOn(image);
 
-
-	SquareFace faceFull_1(faceFull);
-	SquareFace edges_1(edges);
 
 	faceFull_1.translate(-centerX, -centerY, 0);
 	faceFull_1.rotate(0, 0, -22.5);
